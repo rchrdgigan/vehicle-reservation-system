@@ -79,18 +79,20 @@ Main Page
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="#">
-                                        <img src="" alt="VRMS Car's">
+                                        <img src="{{asset('images/not-available/car-not-avail.jpg')}}" alt="VRMS Car's">
                                     </a>
                                 </div>
                                 <div class="product_desc">
                                     <div class="product_desc_info">
                                         <div class="product-review">
                                             <h5 class="manufacturer">
-                                                <a href="#">Car Types</a>
+                                                <a href="#">Sports Car</a><br>
+                                                <a href="#">4 Passengers</a><br>
+                                                <a href="#">2 Units Available</a><br>
+                                                <a href="#">2018 Model</a><br>
                                             </h5>
                                         </div>
                                         <h4><a class="product_name" href="#">Car Brand</a></h4>
-                                       
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">

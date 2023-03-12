@@ -1825,7 +1825,7 @@ textarea:focus {
 }
 /*Sticky*/
 .header-sticky.sticky {
-	background: rgba(254,215,0,.8);
+	background: rgba(255, 153, 85, 0.745);
 	left: 0;
 	position: fixed;
 	right: 0;
