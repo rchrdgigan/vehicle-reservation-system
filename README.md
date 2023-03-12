@@ -35,7 +35,7 @@ php artisan key:generate
 ```
 
 -   To migrate and seed the database
-    > Note! make it sure that you have already created a database before doing this and assign it to your .env file
+    > Note! make it sure that you have already created a database before doing this and configure or assign it to your .env file
 
 ```bash
 php artisan migrate --seed
