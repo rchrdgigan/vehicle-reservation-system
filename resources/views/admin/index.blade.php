@@ -29,7 +29,7 @@
             <div class="dash-count das2">
                 <div class="dash-counts">
                     <h4>0</h4>
-                    <h5>Renters</h5>
+                    <h5>Booking</h5>
                 </div>
                 <div class="dash-imgs">
                     <i data-feather="file-text"></i>

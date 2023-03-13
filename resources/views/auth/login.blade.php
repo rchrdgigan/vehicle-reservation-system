@@ -11,9 +11,18 @@ Login Form
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        
         <div class="col-md-8">
+        @if (session('error'))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert-danger text-center p-2">{{ session('error') }}</div>
+            </div>
+        </div>
+        @endif
             <div class="card">
                 <div class="login-form">
+                
                     <h4 class="login-title">Login Form</h4>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

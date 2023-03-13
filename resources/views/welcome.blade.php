@@ -23,7 +23,7 @@ Main Page
                                 <h2>Toyota Brand</h2>
                                 <h3>Exclusive in <span>Bulan</span></h3>
                                 <div class="default-btn slide-btn">
-                                    <a class="links" href="#">Rent Now</a>
+                                    <a class="links" href="{{route('vehicle.list')}}">Rent Now</a>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@ Main Page
                                 <h2>Honda Brand</h2>
                                 <h3>Exclusive in <span>Bulan</span></h3>
                                 <div class="default-btn slide-btn">
-                                    <a class="links" href="#">Rent Now</a>
+                                    <a class="links" href="{{route('vehicle.list')}}">Rent Now</a>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@ Main Page
                                 <h2>Ford Brand</h2>
                                 <h3>Exclusive in <span>Bulan</span></h3>
                                 <div class="default-btn slide-btn">
-                                    <a class="links" href="#">Rent Now</a>
+                                    <a class="links" href="{{route('vehicle.list')}}">Rent Now</a>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@ Main Page
                             <div class="single-product-wrap">
                                 <div class="product-image">
                                     <a href="#">
-                                        <img src="{{asset('images/not-available/car-not-avail.jpg')}}" alt="VRMS Car's">
+                                        <img src="{{asset('images/na/car-not-avail.jpg')}}" alt="VRMS Car's">
                                     </a>
                                 </div>
                                 <div class="product_desc">
@@ -96,7 +96,7 @@ Main Page
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                            <li class="add-cart active"><a href="{{route('user.cart')}}">Add to cart</a></li>
                                             <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>

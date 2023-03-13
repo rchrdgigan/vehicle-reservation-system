@@ -24,7 +24,7 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
             <span class="user-img"><img src="{{asset('vendor/img/profiles/avator1.jpg')}}" alt="">
             <span class="status online"></span></span>
-            <h6 class="p-2">John Doe</h6>
+            <h6 class="p-2">{{auth()->user()->name}}</h6>
 
             </a>
             <div class="dropdown-menu menu-drop-user">
@@ -33,7 +33,7 @@
                         <span class="user-img"><img src="{{asset('vendor/img/profiles/avator1.jpg')}}" alt="">
                         <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>John Doe</h6>
+                            <h6>{{auth()->user()->name}}</h6>
                             <h5>Admin</h5>
                         </div>
                     </div>
@@ -41,7 +41,11 @@
                     <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My Profile</a>
                     <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
                     <hr class="m-0">
-                    <a class="dropdown-item logout pb-0" href="#"><img src="{{asset('vendor/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
+                    <a class="dropdown-item logout pb-0" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();"><img src="{{asset('vendor/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
         </li>

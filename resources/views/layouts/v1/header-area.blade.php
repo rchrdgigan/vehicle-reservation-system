@@ -21,22 +21,30 @@
                             </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">
+                                    {{ __('My Account') }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <a class="dropdown-item" href="#">
+                                    {{ __('My Booking') }}
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    {{ __('My Vehicle For Rent') }}
+                                </a>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                         </ul>
                     </div>
@@ -47,10 +55,10 @@
     <div class="header-middle pl-sm-0 pr-sm-0 pl-xs-0 pr-xs-0">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3">
+                <div class="col-lg-3 text-center">
                     <div class="logo pb-sm-30 pb-xs-30">
                         <a href="{{url('/')}}">
-                            <img src="{{asset('images/vrms-logo.png')}}" alt="" height="80">
+                            <img src="{{asset('images/vrms-logo.png')}}" alt="" height="50">
                         </a>
                     </div>
                 </div>
@@ -62,7 +70,7 @@
                     <div class="header-middle-right">
                         <ul class="hm-menu">
                             <li class="hm-wishlist">
-                                <a href="#">
+                                <a href="{{route('user.cart')}}">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <span class="item-icon"></span>
                                 </a>
@@ -85,7 +93,7 @@
                                 <li><a href="{{url('/')}}">Home</a></li>
                                 <li><a href="#">About Us</a></li>
                                 <li><a href="#">Contact</a></li>
-                                <li><a href="#">Vehicle List</a></li>
+                                <li><a href="{{route('vehicle.list')}}">Vehicle List</a></li>
                             </ul>
                         </nav>
                     </div>

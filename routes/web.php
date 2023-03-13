@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\{HomeController,PageController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/home', function () {
-    return view('admin.index');
+Route::get('/vehicle/list', [PageController::class, 'vehicleList'])->name('vehicle.list');
+
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+});
+
+Route::middleware(['auth', 'is_client'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/user/cart', [HomeController::class, 'userCart'])->name('user.cart');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
