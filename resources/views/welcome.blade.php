@@ -78,7 +78,7 @@ Main Page
                         <div class="col-lg-12">
                             <div class="single-product-wrap">
                                 <div class="product-image">
-                                    <a href="#">
+                                    <a href="{{route('vehicle.details')}}">
                                         <img src="{{asset('images/na/car-not-avail.jpg')}}" alt="VRMS Car's">
                                     </a>
                                 </div>
@@ -86,18 +86,19 @@ Main Page
                                     <div class="product_desc_info">
                                         <div class="product-review">
                                             <h5 class="manufacturer">
-                                                <a href="#">Sports Car</a><br>
-                                                <a href="#">4 Passengers</a><br>
-                                                <a href="#">2 Units Available</a><br>
-                                                <a href="#">2018 Model</a><br>
+                                            <br>
+                                                <a><span class="product-details-ref">Brand:</span> Toyota</a><br>
+                                                <a><span class="product-details-ref">Model:</span> Innova - 2018</a><br>
+                                                <a><span class="product-details-ref">Seater:</span> 6</a><br>
+                                                <span class="product-details-ref">Booking Type:</span> Bridal Car, Sports Car, Party Car<br>
                                             </h5>
                                         </div>
-                                        <h4><a class="product_name" href="#">Car Brand</a></h4>
+                                        <h4><a class="product_name" href="#">Owner Name</a></h4>
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
                                             <li class="add-cart active"><a href="{{route('user.cart')}}">Add to cart</a></li>
-                                            <li><a href="#" title="quick view" class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{{route('vehicle.details')}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>

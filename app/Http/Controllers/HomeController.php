@@ -35,8 +35,4 @@ class HomeController extends Controller
     {
         return view('cart');
     }
-
-    public function vehicleList(){
-        return view('vehicle-list');
-    }
 }
