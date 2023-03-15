@@ -7,8 +7,8 @@
                 </li>
                 <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Vehicle List</span></a></li>
                 <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Add Vehicle</span></a></li>
-                <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Category List</span></a></li>
-                <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Add Category</span></a></li>
+                <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Category Type List</span></a></li>
+                <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Add Category Type</span></a></li>
                 <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Brand List</span></a></li>
                 <li><a href="#"><img src="{{asset('vendor/img/icons/product.svg')}}" alt="img"><span>Add Brand</span></a></li>
                 <li class="submenu">

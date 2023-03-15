@@ -59,7 +59,7 @@ Details of Vehicle
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content">
                     <div class="product-info">
-                        <h2>Owenrs Name</h2>
+                        <h2><a href="{{route('owner.car')}}">Owenrs Name</a></h2>
                         <span class="product-details-ref">Vehicle Brand:</span> Toyota<br>
                         <span class="product-details-ref">Vehicle Model:</span> Innova - 2018<br>
                         <span class="product-details-ref">Seater Capacity:</span> 6<br>

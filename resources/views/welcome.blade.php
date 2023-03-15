@@ -93,7 +93,7 @@ Main Page
                                                 <span class="product-details-ref">Booking Type:</span> Bridal Car, Sports Car, Party Car<br>
                                             </h5>
                                         </div>
-                                        <h4><a class="product_name" href="#">Owner Name</a></h4>
+                                        <h4><a class="product_name" href="{{route('owner.car')}}">Owner Name</a></h4>
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">

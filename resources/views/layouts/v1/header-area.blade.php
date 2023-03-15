@@ -23,22 +23,22 @@
                         @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ Auth::user()->name }}
+                                <i class="fa fa-user-circle"></i> {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('admin.home')}}">
-                                    {{ __('My Account') }}
+                                <a class="dropdown-item" href="{{route('home')}}">
+                                    <i class="fa fa-user text-secondary"></i> {{ __('My Account') }}
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    {{ __('My Booking') }}
+                                    <i class="fa fa-book text-secondary"></i> {{ __('My Booking') }}
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    {{ __('My Vehicle For Rent') }}
+                                    <i class="fa fa-car text-secondary"></i> {{ __('My Car For Rent') }}
                                 </a>
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                   <i class="fa fa-sign-out"></i> {{ __('Logout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf

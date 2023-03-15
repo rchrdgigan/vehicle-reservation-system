@@ -10,6 +10,7 @@ Route::get('/', function () {
 
 Route::get('/vehicle/list', [PageController::class, 'vehicleList'])->name('vehicle.list');
 Route::get('/vehicle/details', [PageController::class, 'vehicleDetail'])->name('vehicle.details');
+Route::get('/owner/vehicle-list', [PageController::class, 'ownerCars'])->name('owner.car');
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');

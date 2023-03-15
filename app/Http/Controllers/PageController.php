@@ -13,4 +13,9 @@ class PageController extends Controller
     public function vehicleDetail(){
         return view('vehicle-details');
     }
+
+    public function ownerCars(){
+        return view('owner-of-car');
+    }
+
 }

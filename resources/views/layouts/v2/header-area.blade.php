@@ -1,10 +1,10 @@
 <div class="header">
 
-    <div class="header-left active mt-2">
-        <a href="/admin/home" class="logo">
+    <div class="header-left active" style="overflow:hidden">
+        <a href="{{url('/admin/home')}}" class="logo mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
-        <a href="index.html" class="logo-small">
+        <a href="{{url('/admin/home')}}" class="logo-small mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
@@ -39,7 +39,7 @@
                     </div>
                     <hr class="m-0">
                     <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My Profile</a>
-                    <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Settings</a>
+                    <a class="dropdown-item" href="#"><i class="me-2" data-feather="settings"></i>Change Password</a>
                     <hr class="m-0">
                     <a class="dropdown-item logout pb-0" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><img src="{{asset('vendor/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
@@ -56,7 +56,7 @@
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
             <a class="dropdown-item" href="#">My Profile</a>
-            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="#">Change Password</a>
             <a class="dropdown-item" href="#">Logout</a>
         </div>
     </div>

@@ -1,10 +1,10 @@
 <div class="header">
 
-    <div class="header-left active mt-2">
-        <a href="{{url('/')}}" class="logo">
+    <div class="header-left active" style="overflow:hidden">
+        <a href="{{url('/')}}" class="logo mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
-        <a href="index.html" class="logo-small">
+        <a href="{{url('/')}}" class="logo-small mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
@@ -34,11 +34,11 @@
                         <span class="status online"></span></span>
                         <div class="profilesets">
                             <h6>{{auth()->user()->name}}</h6>
-                            <h5>Admin</h5>
+                            <h5>Account</h5>
                         </div>
                     </div>
                     <hr class="m-0">
-                    <a class="dropdown-item" href="#"> <i class="me-2" data-feather="user"></i> My Account</a>
+                    <a class="dropdown-item" href="#"> <i class="me-2" data-feather="settings"></i>Change Password</a>
                     <hr class="m-0">
                     <a class="dropdown-item logout pb-0" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><img src="{{asset('vendor/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
