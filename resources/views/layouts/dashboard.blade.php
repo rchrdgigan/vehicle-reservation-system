@@ -26,8 +26,13 @@
     <div class="whirly-loader"> </div>
 </div>
 <div class="main-wrapper">
-    @include('layouts.v2.header-area')
-    @include('layouts.v2.sidebar-area')
+    @if(auth()->user()->is_admin == '1')
+        @include('layouts.v2.header-area')
+        @include('layouts.v2.sidebar-area')
+    @else
+        @include('layouts.v3.header-area')
+        @include('layouts.v3.sidebar-area')
+    @endif
     <main class="py-4">
         <div class="page-wrapper">
             @yield('content')

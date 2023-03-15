@@ -26,7 +26,7 @@
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{route('admin.home')}}">
                                     {{ __('My Account') }}
                                 </a>
                                 <a class="dropdown-item" href="#">
