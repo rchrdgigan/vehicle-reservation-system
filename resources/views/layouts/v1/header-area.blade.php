@@ -25,6 +25,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-user-circle"></i> {{ Auth::user()->name }}
                             </a>
+                            @if(auth()->user()->is_admin != '1')
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{route('home')}}">
                                     <i class="fa fa-user text-secondary"></i> {{ __('My Account') }}
@@ -44,6 +45,24 @@
                                     @csrf
                                 </form>
                             </div>
+                            @else
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{route('admin.home')}}">
+                                    <i class="fa fa-tachometer text-secondary"></i> {{ __('Dashboard') }}
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fa fa-user text-secondary"></i> {{ __('My Profile') }}
+                                </a>
+                                <a class="dropdown-item text-danger" href="#"
+                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                   <i class="fa fa-sign-out"></i> {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>  
+                            @endif
                         </li>
                         @endguest
                         </ul>

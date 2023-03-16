@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{asset('vendor/plugins/fontawesome/css/fontawesome.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/plugins/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('vendor/plugins/select2/css/select2.min.css')}}">
 </head>
 <body>
 <div id="global-loader">
@@ -46,8 +47,10 @@
 <script src="{{asset('vendor/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('vendor/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{asset('vendor/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('vendor/plugins/apexchart/apexcharts.min.js')}}"></script>
-<script src="{{asset('vendor/plugins/apexchart/chart-data.js')}}"></script>
 <script src="{{asset('vendor/js/script.js')}}"></script>
+
+<script src="{{asset('vendor/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('vendor/js/moment.min.js')}}"></script>
+<script src="{{asset('vendor/js/bootstrap-datetimepicker.min.js')}}"></script>
 </body>
 </html>

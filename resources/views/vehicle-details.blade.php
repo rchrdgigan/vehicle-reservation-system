@@ -101,7 +101,7 @@ Details of Vehicle
                         <div class="col-lg-12">
                             <div class="single-product-wrap">
                                 <div class="product-image">
-                                    <a href="{{asset('images/na/car-not-avail.jpg')}}">
+                                    <a href="{{route('vehicle.details')}}">
                                         <img src="{{asset('images/na/car-not-avail.jpg')}}" alt="VRMS Car's">
                                     </a>
                                 </div>
