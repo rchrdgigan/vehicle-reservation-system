@@ -8,27 +8,21 @@
                     <ul>
                         <li><a class="{{(request()->routeIs('admin.vehicle.index'))? 'active' : ''}}" href="{{route('admin.vehicle.index')}}">Vehicle List</span></a></li>
                         <li><a class="{{(request()->routeIs('admin.vehicle.create'))? 'active' : ''}}" href="{{route('admin.vehicle.create')}}">Add Vehicle</span></a></li>
-                        <li><a href="#">Category Type List</span></a></li>
-                        <li><a href="#">Add Category Type</span></a></li>
-                        <li><a href="#">Brand List</span></a></li>
-                        <li><a href="#">Add Brand</span></a></li>
+                        <li><a class="{{(request()->routeIs('admin.vehicle.type.*'))? 'active' : ''}}" href="{{route('admin.vehicle.type.index')}}">Type Management</span></a></li>
+                        <li><a class="{{(request()->routeIs('admin.vehicle.brand.*'))? 'active' : ''}}" href="{{route('admin.vehicle.brand.index')}}">Brand Management</span></a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="javascript:void(0);"><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span>Customer Booking</span> <span class="menu-arrow"></span></a>
                     <ul>
-                        <li><a href="#">Booking List</a></li>
-                        <li><a href="#">Add Customer Booking</a></li>
+                        <li><a href="#">Pending</a></li>
+                        <li><a href="#">Approved</a></li>
+                        <li><a href="#">Completed</a></li>
+                        <li><a href="#">All History Booking</a></li>
                     </ul>
                 </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span> Owners Account</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="#">Owners Account List</a></li>
-                        <li><a href="#">Add Owner Account</a></li>
-                    </ul>
-                </li>
-
+                <li class=""><a href=""><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span> Users Account List</span> </a></li>
+              
             </ul>
         </div>
     </div>

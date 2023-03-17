@@ -4,8 +4,8 @@
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Brands Management</h4>
-            <h6>Manage all brands</h6>
+            <h4>Types Management</h4>
+            <h6>Manage all types</h6>
         </div>
     </div>
     <div class="row">
@@ -22,18 +22,15 @@
             </div>
         @endif
         <div class="col-md-4">
-            <form action="{{route('admin.vehicle.brand.store')}}" method="post">
+            <form action="{{route('admin.vehicle.type.store')}}" method="post">
                 @csrf
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Vehicles Brand</label>
-                                    <input type="text" name="brand">
-                                    @error('brand')
-                                        <strong class="text-danger">{{ $message }}</strong>
-                                    @enderror
+                                    <label>Vehicles Type</label>
+                                    <input type="text" name="type">
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -61,26 +58,29 @@
                         <table class="table datanew">
                             <thead>
                             <tr>
+                                
                                 <th>Date Created</th>
-                                <th>Vehicle Brands</th>
+                                <th>Vehicle Types</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($brands as $brand)
+                            
+                            @foreach($types as $type)
                             <tr>
-                                <td>{{ Carbon\Carbon::parse($brand->createdAt)->format('d M Y')}}</td>
-                                <td>{{$brand->brand}}</td>
+                                <td>{{ Carbon\Carbon::parse($type->createdAt)->format('d M Y')}}</td>
+                                <td>{{$type->type}}</td>
                                 <td class="text-center">
-                                    <a class="me-3" href="{{route('admin.vehicle.brand.edit', $brand->id)}}">
+                                    <a class="me-3" href="{{route('admin.vehicle.type.edit', $type->id)}}">
                                         <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                                     </a>
-                                    <a type="button" data-bs-toggle="modal" id="{{$brand->id}}"  data-bs-target="#delModal">
+                                    <a type="button" data-bs-toggle="modal" id="{{$type->id}}"  data-bs-target="#delModal">
                                         <img src="{{asset('vendor/img/icons/delete.svg')}}" alt="img">
                                     </a>
                                 </td>
                             </tr>
                             @endforeach
+                        
                             </tbody>
                         </table>
                     </div>
@@ -96,7 +96,7 @@
 <div class="modal fade" id="delModal">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form action="{{route('admin.vehicle.brand.destroy')}}" method="post" id="delete_frm">
+        <form action="{{route('admin.vehicle.type.destroy')}}" method="post" id="delete_frm">
             @csrf
             @method('DELETE')
             <div class="modal-header">

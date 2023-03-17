@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{asset('vendor/plugins/fontawesome/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('vendor/plugins/select2/css/select2.min.css')}}">
+    @stack('links')
 </head>
 <body>
 <div id="global-loader">
@@ -40,7 +41,6 @@
         </div>
     </main>
 </div>
-
 <script src="{{asset('vendor/js/jquery-3.6.0.min.js')}}"></script>
 <script src="{{asset('vendor/js/feather.min.js')}}"></script>
 <script src="{{asset('vendor/js/jquery.slimscroll.min.js')}}"></script>
@@ -52,5 +52,7 @@
 <script src="{{asset('vendor/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('vendor/js/moment.min.js')}}"></script>
 <script src="{{asset('vendor/js/bootstrap-datetimepicker.min.js')}}"></script>
+
+@stack('scripts')
 </body>
 </html>

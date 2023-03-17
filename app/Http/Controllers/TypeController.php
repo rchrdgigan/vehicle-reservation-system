@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Brand;
+use App\Models\Type;
 
-class BrandController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $brands = Brand::get();
-        return view('admin.brand-management', compact('brands'));
+        $types = Type::get();
+        return view('admin.type-management', compact('types'));
     }
 
     /**
@@ -27,11 +27,11 @@ class BrandController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'brand'         => 'required',
+            'type'         => 'required',
         ]);
 
-        $brand = Brand::create(['brand'=>$request->brand]);
-        if($brand){
+        $type = Type::create(['type'=>$request->type]);
+        if($type){
             return back()->with("success","Successfully Added!");
         }else{
             return back()->with("error","Opps Something Wrong!");
@@ -46,9 +46,9 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $edit_brand = Brand::findOrFail($id);
-        $brands = Brand::get();
-        return view('admin.edit-brand', compact('brands','edit_brand'));
+        $edit_type = Type::findOrFail($id);
+        $types = Type::get();
+        return view('admin.edit-type', compact('types','edit_type'));
     }
 
     /**
@@ -61,13 +61,13 @@ class BrandController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'brand'         => 'required',
+            'type'         => 'required',
         ]);
 
-        $edit_brand = Brand::findOrFail($id);
-        if($edit_brand){
-            $edit_brand->brand = $request->brand;
-            $edit_brand->update();
+        $edit_type = Type::findOrFail($id);
+        if($edit_type){
+            $edit_type->type = $request->type;
+            $edit_type->update();
             return back()->with("success","Successfully updated!");
         }
         return abort(404);
@@ -81,10 +81,10 @@ class BrandController extends Controller
      */
     public function destroy(Request $request)
     {
-        $del_brand = Brand::findOrFail($request->id);
-        if($del_brand){
-            $del_brand->delete();
-            return redirect()->route('admin.vehicle.brand.index')->with("success","Successfully deleted!");
+        $del_type = Type::findOrFail($request->id);
+        if($del_type){
+            $del_type->delete();
+            return redirect()->route('admin.vehicle.type.index')->with("success","Successfully deleted!");
         }
         return abort(404);
     }

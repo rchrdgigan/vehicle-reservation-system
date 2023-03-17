@@ -5,7 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryType extends Model
+class Owner extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'ower_fname',
+        'ower_lname',
+        'contact'
+    ];
 }

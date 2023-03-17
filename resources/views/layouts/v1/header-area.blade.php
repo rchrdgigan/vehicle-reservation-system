@@ -47,7 +47,7 @@
                             </div>
                             @else
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('admin.home')}}">
+                                <a class="dropdown-item" href="{{route('admin.index')}}">
                                     <i class="fa fa-tachometer text-secondary"></i> {{ __('Dashboard') }}
                                 </a>
                                 <a class="dropdown-item" href="#">

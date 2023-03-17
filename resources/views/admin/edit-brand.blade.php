@@ -4,40 +4,42 @@
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Brands Management</h4>
-            <h6>Manage all brands</h6>
+            <h4>Edit Brands</h4>
+            <h6>Update your brands</h6>
         </div>
     </div>
     <div class="row">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
         <div class="col-md-4">
-            <form action="{{route('admin.vehicle.brand.store')}}" method="post">
+            <form action="{{route('admin.vehicle.brand.update', $edit_brand->id)}}" method="post">
                 @csrf
+                @method('PUT')
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Vehicles Brand</label>
-                                    <input type="text" name="brand">
+                                    <input type="text" name="brand" value="{{$edit_brand->brand}}">
                                     @error('brand')
                                         <strong class="text-danger">{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Save</button>
+                                <a href="{{route('admin.vehicle.brand.index')}}" class="btn btn-cancel me-2">Cancel</a>
+                                <button type="submit" class="btn btn-submit me-2">Update</button>
                             </div>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 <div class="header">
 
     <div class="header-left active" style="overflow:hidden">
-        <a href="{{url('/admin/home')}}" class="logo mt-2">
+        <a href="{{url('/admin/')}}" class="logo mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
-        <a href="{{url('/admin/home')}}" class="logo-small mt-2">
+        <a href="{{url('/admin/')}}" class="logo-small mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">

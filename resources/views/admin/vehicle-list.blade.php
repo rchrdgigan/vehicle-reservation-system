@@ -22,36 +22,6 @@
                 </div>
             </div>
 
-            <div class="card" id="filter_inputs">
-                <div class="card-body pb-0">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <input type="text" placeholder="Enter Name">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <input type="text" placeholder="Enter Reference No">
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <select class="select">
-                                    <option>Completed</option>
-                                    <option>Paid</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 col-12">
-                            <div class="form-group">
-                                <a class="btn btn-filters ms-auto"><img src="{{asset('vendor/img/icons/search-whites.svg')}}" alt="img"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="table-responsive">
                 <table class="table datanew">
                     <thead>
@@ -74,10 +44,10 @@
                         <td>5</td>
                         <td><span class="badges bg-lightgreen">Completed</span></td>
                         <td class="text-center">
-                            <a class="me-3" href="product-details.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/eye.svg')}}" alt="img">
                             </a>
-                            <a class="me-3" href="editproduct.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                             </a>
                             <a class="confirm-text" href="javascript:void(0);">
@@ -93,10 +63,10 @@
                         <td>5</td>
                         <td><span class="badges bg-lightred">Pending</span></td>
                         <td class="text-center">
-                            <a class="me-3" href="product-details.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/eye.svg')}}" alt="img">
                             </a>
-                            <a class="me-3" href="editproduct.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                             </a>
                             <a class="confirm-text" href="javascript:void(0);">
@@ -112,10 +82,10 @@
                         <td>5</td>
                         <td><span class="badges bg-lightgreen">Completed</span></td>
                         <td class="text-center">
-                            <a class="me-3" href="product-details.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/eye.svg')}}" alt="img">
                             </a>
-                            <a class="me-3" href="editproduct.html">
+                            <a class="me-3" href="">
                                 <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                             </a>
                             <a class="confirm-text" href="javascript:void(0);">

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{HomeController,PageController,VehicleController};
+use App\Http\Controllers\{HomeController,PageController,VehicleController,BrandController,TypeController};
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,6 +25,29 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
             Route::post('/store', 'store')->name('store');
             Route::put('/update', 'update')->name('update');
             Route::delete('/destroy', 'destroy')->name('destroy');
+
+            Route::controller(BrandController::class)
+            ->as('brand.')
+            ->prefix('brand')
+            ->group(function(){
+                Route::get('/', 'index')->name('index');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::put('/update/{id}', 'update')->name('update');
+                Route::delete('/destroy', 'destroy')->name('destroy');
+            });
+
+            Route::controller(TypeController::class)
+            ->as('type.')
+            ->prefix('type')
+            ->group(function(){
+                Route::get('/', 'index')->name('index');
+                Route::post('/store', 'store')->name('store');
+                Route::get('/edit/{id}', 'edit')->name('edit');
+                Route::put('/update/{id}', 'update')->name('update');
+                Route::delete('/destroy', 'destroy')->name('destroy');
+            });
+
         });
     });
 });
@@ -33,5 +56,6 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user/cart', [HomeController::class, 'userCart'])->name('user.cart');
 });
+
 
 Auth::routes();
