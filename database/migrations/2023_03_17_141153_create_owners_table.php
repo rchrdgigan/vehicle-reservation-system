@@ -15,9 +15,11 @@ return new class extends Migration
     {
         Schema::create('owners', function (Blueprint $table) {
             $table->id();
-            $table->string('ower_fname');
-            $table->string('ower_lname');
+            $table->unsignedBigInteger('user_id');
+            $table->string('owner_fname');
+            $table->string('owner_lname');
             $table->string('contact');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

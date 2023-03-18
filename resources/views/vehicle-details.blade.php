@@ -17,59 +17,41 @@ Details of Vehicle
             <div class="col-lg-5 col-md-6">
                 <div class="product-details-left">
                     <div class="product-details-images slider-navigation-1">
-
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="{{asset('images/na/car-not-avail.jpg')}}" data-gall="myGallery">
-                                <img height="500" src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="{{asset('images/na/car-not-avail.jpg')}}" data-gall="myGallery">
-                                <img height="500" src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="{{asset('images/na/car-not-avail.jpg')}}" data-gall="myGallery">
-                                <img height="500" src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="{{asset('images/na/car-not-avail.jpg')}}" data-gall="myGallery">
-                                <img height="500" src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image">
-                            </a>
-                        </div>
-                        <div class="lg-image">
-                            <a class="popup-img venobox vbox-item" href="{{asset('images/na/car-not-avail.jpg')}}" data-gall="myGallery">
-                                <img height="500" src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image">
-                            </a>
-                        </div>
-
+                        @foreach($vehicle_img->where('vehicle_id', $vehicle->id) as $img)
+                            <div class="lg-image">
+                                <a class="popup-img venobox vbox-item" href="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" data-gall="myGallery">
+                                    <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="product image">
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
                     <div class="product-details-thumbs slider-thumbs-1">   
-
-                        <div class="sm-image"><img src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image thumb"></div>
-                        <div class="sm-image"><img src="{{asset('images/na/car-not-avail.jpg')}}" alt="product image thumb"></div>
-                        
+                        @foreach($vehicle_img->where('vehicle_id', $vehicle->id) as $img)
+                            <div class="sm-image"><img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="product image thumb"></div>
+                        @endforeach
                     </div>
                 </div>
             </div>
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content">
                     <div class="product-info">
-                        <h2><a href="{{route('owner.car')}}">Owenrs Name</a></h2>
-                        <span class="product-details-ref">Vehicle Brand:</span> Toyota<br>
-                        <span class="product-details-ref">Vehicle Model:</span> Innova - 2018<br>
-                        <span class="product-details-ref">Seater Capacity:</span> 6<br>
-                        <span class="product-details-ref">Booking Type:</span> Bridal Car, Van, Sports Car, Party Car<br>
+                        <h2><a href="{{route('owner.car')}}">{{$owner_name ?? 'N/A'}}</a></h2>
+                        <span class="product-details-ref">Vehicle Brand:</span> {{$brands->brand ?? 'N/A'}}<br>
+                        <span class="product-details-ref">Vehicle Model:</span> {{$brands->brand ?? 'N/A'}} - {{$vehicle->model_year}}<br>
+                        <span class="product-details-ref">Seater Capacity:</span> {{$vehicle->seating_cap}}<br>
+                        <span class="product-details-ref">Booking Type:</span> 
+                        @foreach($type_name as $types)
+                            <span>{{$types ?? 'N/A'}}</span>
+                            @if( !$loop->last)
+                                ,
+                            @endif
+                        @endforeach<br>
                         <div class="product-desc mt-4">
                             <label for="">Description: </label>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nemo repellendus reiciendis commodi perspiciatis itaque, nihil cum exercitationem adipisci hic minus beatae dolorum eveniet similique deleniti corrupti fugit fuga vero ipsam?
+                            {{$vehicle->description}}
                         </div>
                         <div>
-                            <span class="bg-success text-white rounded p-1">Available</span>
+                            <span class="bg-success text-white rounded p-1">{{($vehicle->is_approved == 'Approved')? 'Available' : ''}}</span>
                         </div>
                         <div class="single-add-to-cart">
                             <form action="#" method="POST" class="cart-quantity">
@@ -97,36 +79,42 @@ Details of Vehicle
                 
                 <div class="row">
                     <div class="product-active owl-carousel">
-
+                    @foreach($o_t_brand as $vehicle)                
                         <div class="col-lg-12">
                             <div class="single-product-wrap">
-                                <div class="product-image">
-                                    <a href="{{route('vehicle.details')}}">
-                                        <img src="{{asset('images/na/car-not-avail.jpg')}}" alt="VRMS Car's">
+                                <div class="product-image static-image">
+                                    <a href="{{route('vehicle.details', $vehicle->id)}}">
+                                        @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                        <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="VRMS Car's">
+                                        @endforeach
                                     </a>
                                 </div>
                                 <div class="product_desc">
                                     <div class="product_desc_info">
                                         <div class="product-review">
                                             <h5 class="manufacturer">
-                                                <a><span class="product-details-ref">Brand:</span> Toyota</a><br>
-                                                <a><span class="product-details-ref">Model:</span> Innova - 2018</a><br>
-                                                <a><span class="product-details-ref">Seater:</span> 6</a><br>
-                                                <span class="product-details-ref">Booking Type:</span> Bridal Car, Sports Car, Party Car<br>
+                                                <a><span class="product-details-ref">Brand:</span> {{$brands->brand ?? 'N/A'}}</a><br>
+                                                <a><span class="product-details-ref">Model:</span> {{$vehicle->vehicle_name . " - " .$vehicle->model_year}}</a><br>
+                                                <a><span class="product-details-ref">Seater:</span> {{ $vehicle->seating_cap }}</a><br>
+                                                <a><span class="product-details-ref">Status:</span> {{ ($vehicle->is_approved == 'Approved')? 'Available' : ''}}</a><br>
                                             </h5>
                                         </div>
-                                        <h4><a class="product_name" href="#">Owner Name</a></h4>
+                                        @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                            @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                            @endforeach
+                                        @endforeach
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
                                             <li class="add-cart active"><a href="{{route('user.cart')}}">Add to cart</a></li>
-                                            <li><a href="{{route('vehicle.details')}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                    @endforeach
                     </div>
                 </div>
             </div>

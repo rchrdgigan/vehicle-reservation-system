@@ -17,6 +17,21 @@ class Vehicle extends Model
         'brand_id',
         'seating_cap',
         'description',
+        'is_approved'
     ];
 
+    public function assign_vehicle_owner()
+    {
+        return $this->hasMany(AssignVehicleOwner::class);
+    }
+
+    public function assign_vehicle_type()
+    {
+        return $this->hasMany(AssignVehicleType::class);
+    }
+
+    public function vehicle_image()
+    {
+        return $this->hasMany(VehicleImage::class);
+    }
 }

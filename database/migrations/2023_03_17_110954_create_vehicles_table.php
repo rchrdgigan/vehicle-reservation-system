@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('brand_id');
             $table->string('seating_cap');
             $table->string('description');
+            $table->string('is_approved');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->timestamps();
         });

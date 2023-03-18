@@ -6,7 +6,7 @@
         <div class="col-lg-4 col-sm-6 col-12 d-flex">
             <div class="dash-count">
                 <div class="dash-counts">
-                    <h4>0</h4>
+                    <h4>{{$c_vehicle}}</h4>
                     <h5>Vehicle</h5>
                 </div>
                 <div class="dash-imgs">
@@ -17,7 +17,7 @@
         <div class="col-lg-4 col-sm-6 col-12 d-flex">
             <div class="dash-count das1">
                 <div class="dash-counts">
-                    <h4>0</h4>
+                    <h4>{{$c_owner}}</h4>
                     <h5>Owner</h5>
                 </div>
                 <div class="dash-imgs">
@@ -77,10 +77,10 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a href="productlist.html" class="dropdown-item">View Vehicle List</a>
+                                <a href="{{route('admin.vehicle.index')}}" class="dropdown-item">View Vehicle List</a>
                             </li>
                             <li>
-                                <a href="addproduct.html" class="dropdown-item">Vehicle Add</a>
+                                <a href="{{route('admin.vehicle.create')}}" class="dropdown-item">Vehicle Add</a>
                             </li>
                         </ul>
                     </div>
@@ -96,36 +96,26 @@
                             </tr>
                             </thead>
                             <tbody>
+                            @foreach($vehicles as $vehicle)
                             <tr>
-                                <td>1</td>
+                                <td>{{Carbon\Carbon::now()->format('y').'-'.str_pad($vehicle->id, 5, '0', STR_PAD_LEFT)}}</td>
                                 <td class="productimgname">
-                                    <a href="" class="product-img">
-                                        <img src="{{asset('vendor/img/product/1.jpg')}}" alt="vehicle">
+                                    <a href="{{route('admin.vehicle.show', $vehicle->id)}}" class="product-img">
+                                    @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                        <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
+                                    @endforeach
                                     </a>
-                                    <a href="">Toyota - 6 Seater</a>
+                                    @foreach($brands->where('id', $vehicle->brand_id)->take(1) as $brand)
+                                        <a href="">{{ $brand->brand }} - {{ $vehicle->seating_cap }} Seater</a>
+                                    @endforeach
                                 </td>
-                                <td>User 1</td>
+                                @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                    @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                    <td>{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</td>
+                                    @endforeach
+                                @endforeach
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td class="productimgname">
-                                    <a href="" class="product-img">
-                                        <img src="{{asset('vendor/img/product/2.jpg')}}" alt="vehicle">
-                                    </a>
-                                    <a href="">Honda - 4 Seater</a>
-                                </td>
-                                <td>User 2</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td class="productimgname">
-                                    <a href="" class="product-img">
-                                        <img src="{{asset('vendor/img/product/3.jpg')}}" alt="vehicle">
-                                    </a>
-                                    <a href="">Ford - 4 Seater</a>
-                                </td>
-                                <td>User 3</td>
-                            </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -144,50 +134,30 @@
                         <th>Vehicle Plate No.</th>
                         <th>Vehicle Name</th>
                         <th>Brand Name</th>
-                        <th>Category Name</th>
                         <th>Expiry Date</th>
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($exp_vehicle as $vehicle)
                     <tr>
-                        <td>1</td>
-                        <td><a href="javascript:void(0);">12345</a></td>
+                        <td>{{Carbon\Carbon::now()->format('y').'-'.str_pad($vehicle->id, 5, '0', STR_PAD_LEFT)}}</td>
+                        <td>{{ $vehicle->plate_no }}</td>
                         <td class="productimgname">
-                            <a class="product-img" href="productlist.html">
-                                <img src="{{asset('vendor/img/product/1.jpg')}}" alt="vehicle">
+                            <a class="product-img" href="{{route('admin.vehicle.show', $vehicle->id)}}">
+                                @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                    <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
+                                @endforeach
                             </a>
-                            <a href="productlist.html">Hilux4D - 6 Seater</a>
+                            @foreach($brands->where('id', $vehicle->brand_id)->take(1) as $brand)
+                                <a href="">{{ $brand->brand }} - {{ $vehicle->seating_cap }} Seater</a>
+                            @endforeach
                         </td>
-                        <td>Toyota</td>
-                        <td>SUV</td>
-                        <td>12-12-2022</td>
+                        @foreach($brands->where('id', $vehicle->brand_id)->take(1) as $brand)
+                        <td>{{ $brand->brand }}</td>
+                        @endforeach
+                        <td>{{ Carbon\Carbon::parse($vehicle->vehicle_exp)->format('d M Y')}}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><a href="javascript:void(0);">12345</a></td>
-                        <td class="productimgname">
-                            <a class="product-img" href="productlist.html">
-                                <img src="{{asset('vendor/img/product/2.jpg')}}" alt="vehicle">
-                            </a>
-                            <a href="productlist.html">Honda Civic - 4 Seater</a>
-                        </td>
-                        <td>Honda</td>
-                        <td>Bridal Car</td>
-                        <td>25-11-2022</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><a href="javascript:void(0);">12345</a></td>
-                        <td class="productimgname">
-                            <a class="product-img" href="productlist.html">
-                                <img src="{{asset('vendor/img/product/3.jpg')}}" alt="vehicle">
-                            </a>
-                            <a href="productlist.html">Fortuner - 6 Seater</a>
-                        </td>
-                        <td>Ford</td>
-                        <td>Party Car</td>
-                        <td>19-11-2022</td>
-                    </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

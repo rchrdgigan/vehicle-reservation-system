@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 use App\Models\User;
+use App\Models\Owner;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -32,6 +33,25 @@ class DatabaseSeeder extends Seeder
   
         foreach ($user as $key => $value) {
             User::create($value);
+        }
+
+        $owner = [
+            [
+                'user_id'=>'1',
+                'owner_fname'=>'Admin Firstname',
+                'owner_lname'=>'Lastname',
+                'contact'=>'09323123122',
+            ],
+            [
+                'user_id'=>'2',
+                'owner_fname'=>'User Firstname',
+                'owner_lname'=>'Lastname',
+                'contact'=>'09323123403',
+            ],
+        ];
+        
+        foreach ($owner as $key => $value) {
+            Owner::create($value);
         }
     }
 }

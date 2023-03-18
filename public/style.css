@@ -2080,6 +2080,11 @@ textarea:focus {
   display: block;
   position: relative;
 }
+.static-image {
+	width:100%; 
+	height:100px; 
+	overflow:hidden;
+}
 .single-product-wrap:hover .secondary-image{
   opacity: 1;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";

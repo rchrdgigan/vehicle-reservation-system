@@ -21,7 +21,7 @@
                         <li><a href="#">All History Booking</a></li>
                     </ul>
                 </li>
-                <li class=""><a href=""><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span> Users Account List</span> </a></li>
+                <li class="{{(request()->routeIs('admin.user.*'))? 'active' : ''}}"><a href="{{route('admin.user.index')}}"><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span> Users Account List</span> </a></li>
               
             </ul>
         </div>

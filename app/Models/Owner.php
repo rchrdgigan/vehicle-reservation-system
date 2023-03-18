@@ -10,8 +10,9 @@ class Owner extends Model
     use HasFactory;
 
     protected $fillable = [
-        'ower_fname',
-        'ower_lname',
+        'user_id',
+        'owner_fname',
+        'owner_lname',
         'contact'
     ];
 }

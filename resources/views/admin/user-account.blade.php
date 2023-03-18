@@ -4,8 +4,8 @@
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Types Management</h4>
-            <h6>Manage all types</h6>
+            <h4>Users Owner Management</h4>
+            <h6>Manage all owner</h6>
         </div>
     </div>
     <div class="row">
@@ -21,32 +21,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <div class="col-md-4">
-            <form action="{{route('admin.vehicle.type.store')}}" method="post">
-                @csrf
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label>Vehicles Type</label>
-                                    <input type="text" name="type">
-                                    @error('type')
-                                        <strong class="text-danger">{{ $message }}</strong>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Save</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <div class="col-md-8">
-
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <div class="table-top">
@@ -63,24 +38,37 @@
                             <tr>
                                 
                                 <th>Date Created</th>
-                                <th>Vehicle Types</th>
+                                <th>Users Name</th>
+                                <th>Users Email</th>
+                                <th>Owner Name</th>
+                                <th>Owner Contact</th>
                                 <th class="text-center">Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             
-                            @foreach($types as $type)
+                            @foreach($users as $user)
                             <tr>
-                                <td>{{ Carbon\Carbon::parse($type->createdAt)->format('d M Y')}}</td>
-                                <td>{{$type->type}}</td>
+                                <td>{{ Carbon\Carbon::parse($user->createdAt)->format('d M Y')}}</td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                @if(isset($user->owner->owner_fname) || isset($user->owner->owner_lname))
+                                <td>{{$user->owner->owner_fname . " " . $user->owner->owner_lname ?? 'N/A'}}</td>
+                                <td>{{$user->owner->contact ?? 'N/A'}}</td>
                                 <td class="text-center">
-                                    <a class="me-3" href="{{route('admin.vehicle.type.edit', $type->id)}}">
+                                    <a class="me-3" href="{{route('admin.user.edit', $user->owner->id)}}">
                                         <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                                     </a>
-                                    <a type="button" data-bs-toggle="modal" id="{{$type->id}}"  data-bs-target="#delModal">
-                                        <img src="{{asset('vendor/img/icons/delete.svg')}}" alt="img">
+                                </td>
+                                @else
+                                <td>N/A</td>
+                                <td>N/A</td>
+                                <td class="text-center">
+                                    <a class="me-3" href="{{route('admin.user.create', $user->id)}}">
+                                        <img src="{{asset('vendor/img/icons/plus.svg')}}" alt="img">
                                     </a>
                                 </td>
+                                @endif
                             </tr>
                             @endforeach
                         
@@ -99,7 +87,7 @@
 <div class="modal fade" id="delModal">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form action="{{route('admin.vehicle.type.destroy')}}" method="post" id="delete_frm">
+        <form action="#" method="post" id="delete_frm">
             @csrf
             @method('DELETE')
             <div class="modal-header">
