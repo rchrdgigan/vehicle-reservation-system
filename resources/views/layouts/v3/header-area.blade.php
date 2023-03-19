@@ -24,7 +24,7 @@
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
             <span class="user-img"><img src="{{asset('vendor/img/profiles/avator1.jpg')}}" alt="">
             <span class="status online"></span></span>
-            <h6 class="p-2">{{auth()->user()->name}}</h6>
+            <h6 class="p-2">{{auth()->user()->fname}}</h6>
 
             </a>
             <div class="dropdown-menu menu-drop-user">
@@ -33,7 +33,7 @@
                         <span class="user-img"><img src="{{asset('vendor/img/profiles/avator1.jpg')}}" alt="">
                         <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>{{auth()->user()->name}}</h6>
+                            <h6>{{auth()->user()->fname . " " . auth()->user()->lname}} </h6>
                             <h5>Account</h5>
                         </div>
                     </div>

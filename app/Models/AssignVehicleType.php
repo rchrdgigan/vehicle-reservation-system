@@ -14,4 +14,8 @@ class AssignVehicleType extends Model
         'type_id'
     ];
 
+    public function vehicle(){
+        return $this->belongsTo(Vehicle::class);
+    }
+
 }

@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <div class="profile-contentname">
-                            <h2>Firstname Lastname</h2>
+                            <h2>{{auth()->user()->fname . " " . auth()->user()->lname}}</h2>
                             <h4>Updates Your Photo and Personal Details.</h4>
                         </div>
                     </div>
@@ -35,31 +35,31 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" placeholder="Enter Your First Name">
+                        <input type="text" placeholder="Enter Your First Name" name="fname" value="{{auth()->user()->fname}}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" placeholder="Enter Your Last Name">
+                        <input type="text" placeholder="Enter Your Last Name" name="lname" value="{{auth()->user()->lname}}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" placeholder="Enter Your Email">
+                        <input type="text" placeholder="Enter Your Email" name="email" value="{{auth()->user()->email}}">
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         <label>Phone</label>
-                        <input type="text" placeholder="Enter Your Cellphone Number">
+                        <input type="text" placeholder="Enter Your Cellphone Number" name="cpnumber" value="{{auth()->user()->cpnumber}}">
                     </div>
                 </div>
                 <div class="col-lg-12 col-sm-12">
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text" placeholder="Enter Your Address">
+                        <input type="text" placeholder="Enter Your Address" name="address" value="{{auth()->user()->address}}">
                     </div>
                 </div>
             </div>

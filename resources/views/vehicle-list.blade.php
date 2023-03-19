@@ -27,7 +27,7 @@ List of Vehicle
                         <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                             <div class="product-area shop-product-area">
                                 <div class="row">
-                                    @foreach($vehicles as $vehicle)
+                                    @foreach($vehicles->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
                                         <div class="col-lg-4 col-md-4 col-sm-4 mt-40">
                                             <div class="single-product-wrap">
                                                 <div class="product-image static-image">
@@ -49,11 +49,19 @@ List of Vehicle
                                                                 <a><span class="product-details-ref">Status:</span> {{ ($vehicle->is_approved == 'Approved')? 'Available' : ''}}</a><br>
                                                             </h5>
                                                         </div>
-                                                        @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
-                                                            @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                        @if(request()->routeIs('vehicle.filter.type'))
+                                                            @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                                                @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                                                <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                                @endforeach
                                                             @endforeach
-                                                        @endforeach
+                                                        @else
+                                                            @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                                                @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                                                <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                                @endforeach
+                                                            @endforeach
+                                                        @endif
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
@@ -78,33 +86,39 @@ List of Vehicle
                 </div>
             </div>
             <div class="col-lg-3 order-2 order-lg-1">
-                <!--sidebar-categores-box start  -->
                 <div class="sidebar-categores-box">
                     <div class="sidebar-title">
                         <h2>Filter By</h2>
                     </div>
-                    <!-- filter-sub-area start -->
                     <div class="filter-sub-area">
-                    <!-- filter-sub-area start -->
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Vehicle Type</h5>
                         <div class="categori-checkbox">
+                            @foreach($types as $d2)
                             <ul>
-                                <li><a href="#">Bridal Car (1)</a></li>
-                                <li><a href="#">SUV Car (3)</a></li>
+                                @forelse($d2->assign_vehicle_type->take(1) as $c1)
+                                <li><a href="{{route('vehicle.filter.type',$d2->id)}}">{{$d2->type}}</a></li>
+                                <!-- ({{$c1->where('type_id',$d2->id)->count()}}) -->
+                                @empty
+                                
+                                @endforelse
                             </ul>
+                            @endforeach
                         </div>
                     </div>
-                    <!-- filter-sub-area end -->
-                    <!-- filter-sub-area start -->
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Vehicle Brand</h5>
                         <div class="categori-checkbox">
+                            @foreach($brands as $dbrand)
                             <ul>
-                                <li><a href="#">Toyota (1)</a></li>
-                                <li><a href="#">Honda (1)</a></li>
-                                <li><a href="#">Ford (1)</a></li>
+                                @forelse($dbrand->vehicle->take(1) as $dvcount)
+                                <li><a href="{{route('vehicle.filter.brand',$dbrand->id)}}">{{$dbrand->brand}}</a></li>
+                                <!--  ({{$dvcount->where('brand_id',$dbrand->id)->count()}}) -->
+                                @empty
+                                
+                                @endforelse
                             </ul>
+                            @endforeach
 `                        </div>
                     </div>
                     <!-- filter-sub-area end -->

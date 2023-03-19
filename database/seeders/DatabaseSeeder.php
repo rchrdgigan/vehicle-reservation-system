@@ -18,14 +18,20 @@ class DatabaseSeeder extends Seeder
     {
         $user = [
             [
-                'name'=>'Admin',
+                'fname'=>'FAdmin',
+                'lname'=>'LAdmin',
                 'email'=>'admin@example.com',
+                'cpnumber'=>'09132123123',
+                'address'=>'Bulan Sorsogon',
                 'is_admin'=>'1',
                 'password'=> bcrypt('12345678'),
             ],
             [
-                'name'=>'User',
+                'fname'=>'FUser',
+                'lname'=>'LUser',
                 'email'=>'user@example.com',
+                'cpnumber'=>'09132123123',
+                'address'=>'Bulan Sorsogon',
                 'is_admin'=>'0',
                 'password'=> bcrypt('12345678'),
             ],

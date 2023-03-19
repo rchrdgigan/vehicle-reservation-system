@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
 Route::get('/vehicle/list', [PageController::class, 'vehicleList'])->name('vehicle.list');
+Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilteredBrand'])->name('vehicle.filter.brand');
+Route::get('/vehicle/list/type/{type}', [PageController::class, 'vehicleFilteredType'])->name('vehicle.filter.type');
 Route::get('/vehicle/details/{id}', [PageController::class, 'vehicleDetail'])->name('vehicle.details');
 Route::get('/owner/vehicle-list', [PageController::class, 'ownerCars'])->name('owner.car');
 Route::middleware(['auth', 'is_admin'])->group(function () {

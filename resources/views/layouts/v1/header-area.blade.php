@@ -23,7 +23,7 @@
                         @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user-circle"></i> {{ Auth::user()->name }}
+                                <i class="fa fa-user-circle"></i> {{ Auth::user()->fname }}
                             </a>
                             @if(auth()->user()->is_admin != '1')
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
