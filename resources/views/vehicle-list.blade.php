@@ -65,8 +65,16 @@ List of Vehicle
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
-                                                            <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                            <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
+                                                           
+                                                            <li class="add-cart active">
+                                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
+                                                                document.getElementById('add-cart').submit();">Add to cart</a>
+                                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
+                                                                    @csrf
+                                                                </form>
+                                                            </li>
+
+                                                            <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -97,8 +105,8 @@ List of Vehicle
                             @foreach($types as $d2)
                             <ul>
                                 @forelse($d2->assign_vehicle_type->take(1) as $c1)
-                                <li><a href="{{route('vehicle.filter.type',$d2->id)}}">{{$d2->type}}</a></li>
-                                <!-- ({{$c1->where('type_id',$d2->id)->count()}}) -->
+                                <li><a href="{{route('vehicle.filter.type',$d2->id)}}">{{$d2->type}} ({{$c1->where('type_id',$d2->id)->count()}})</a></li>
+                                
                                 @empty
                                 
                                 @endforelse
@@ -112,8 +120,8 @@ List of Vehicle
                             @foreach($brands as $dbrand)
                             <ul>
                                 @forelse($dbrand->vehicle->take(1) as $dvcount)
-                                <li><a href="{{route('vehicle.filter.brand',$dbrand->id)}}">{{$dbrand->brand}}</a></li>
-                                <!--  ({{$dvcount->where('brand_id',$dbrand->id)->count()}}) -->
+                                <li><a href="{{route('vehicle.filter.brand',$dbrand->id)}}">{{$dbrand->brand}} ({{$dvcount->where('brand_id',$dbrand->id)->count()}})</a></li>
+                                
                                 @empty
                                 
                                 @endforelse

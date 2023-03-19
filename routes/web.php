@@ -1,6 +1,14 @@
 <?php
 
-use App\Http\Controllers\{HomeController,PageController,VehicleController,BrandController,TypeController,UserAccountController};
+use App\Http\Controllers\{
+    HomeController,
+    PageController,
+    VehicleController,
+    BrandController,
+    TypeController,
+    UserAccountController,
+    CartController,
+};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
@@ -60,6 +68,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 });
 Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/user/cart', [HomeController::class, 'userCart'])->name('user.cart');
+    Route::get('/user/cart/list', [CartController::class, 'listCart'])->name('cart.list');
+    Route::post('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
+    Route::post('/user/booking/add/{vehicle_id}/{owner_id}', [CartController::class, 'addBooking'])->name('add.booking');
 });
 Auth::routes();

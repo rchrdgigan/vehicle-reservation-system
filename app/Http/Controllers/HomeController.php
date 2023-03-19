@@ -39,9 +39,4 @@ class HomeController extends Controller
         $exp_vehicle = Vehicle::where('vehicle_exp', '<' , Carbon::now()->format('Y-m-d'))->paginate(5);
         return view('admin.index',compact('c_vehicle','c_owner','brands','owners','vehicles','vehicle_img','exp_vehicle'));
     }
-
-    public function userCart()
-    {
-        return view('cart');
-    }
 }

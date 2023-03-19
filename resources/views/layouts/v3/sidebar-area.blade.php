@@ -13,7 +13,7 @@
                     </ul>
                 </li>
                 <li class="submenu">
-                    <a href="javascript:void(0);"><i class="me-2" data-feather="truck"></i><span>My Car For Rent</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);"><i class="me-2 fa fa-car"></i><span>My Car For Rent</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a href="#">Add Vehicle</a></li>
                         <li><a href="#">Vehicle List</a></li>

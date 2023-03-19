@@ -27,16 +27,16 @@
                             </a>
                             @if(auth()->user()->is_admin != '1')
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('home')}}">
-                                    <i class="fa fa-user text-secondary"></i> {{ __('My Account') }}
+                                <a class="dropdown-item btn-secondary" href="{{route('home')}}">
+                                    <i class="fa fa-user"></i> {{ __('My Account') }}
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-book text-secondary"></i> {{ __('My Booking') }}
+                                <a class="dropdown-item btn-secondary" href="#">
+                                    <i class="fa fa-book"></i> {{ __('My Booking') }}
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-car text-secondary"></i> {{ __('My Car For Rent') }}
+                                <a class="dropdown-item btn-secondary" href="#">
+                                    <i class="fa fa-car"></i> {{ __('My Car For Rent') }}
                                 </a>
-                                <a class="dropdown-item text-danger" href="{{ route('logout') }}"
+                                <a class="dropdown-item text-danger btn-secondary" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                    <i class="fa fa-sign-out"></i> {{ __('Logout') }}
@@ -47,13 +47,13 @@
                             </div>
                             @else
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{route('admin.index')}}">
-                                    <i class="fa fa-tachometer text-secondary"></i> {{ __('Dashboard') }}
+                                <a class="dropdown-item btn-secondary" href="{{route('admin.index')}}">
+                                    <i class="fa fa-tachometer"></i> {{ __('Dashboard') }}
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fa fa-user text-secondary"></i> {{ __('My Profile') }}
+                                <a class="dropdown-item btn-secondary" href="#">
+                                    <i class="fa fa-user"></i> {{ __('My Profile') }}
                                 </a>
-                                <a class="dropdown-item text-danger" href="#"
+                                <a class="dropdown-item text-danger btn-secondary" href="#"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
                                    <i class="fa fa-sign-out"></i> {{ __('Logout') }}
@@ -89,7 +89,7 @@
                     <div class="header-middle-right">
                         <ul class="hm-menu">
                             <li class="hm-wishlist">
-                                <a href="{{route('user.cart')}}">
+                                <a href="{{route('cart.list')}}">
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <span class="item-icon"></span>
                                 </a>

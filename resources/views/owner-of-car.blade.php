@@ -33,7 +33,7 @@ Owner's Vehicle
                                     <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
                                         <div class="single-product-wrap">
                                             <div class="product-image">
-                                                <a href="{{route('vehicle.details')}}">
+                                                <a href="">
                                                     <img height="250" src="{{asset('images/na/car-not-avail.jpg')}}">
                                                 </a>
                                             </div>
@@ -72,8 +72,7 @@ Owner's Vehicle
                 
                     <ul>
                         <li><a href=""><img height="150" width="150" src="{{asset('images/na/car-not-avail.jpg')}}" class="rounded-circle" alt="" /></a></li>
-                        <h5 class="p-3">Firstname Lastname
-                            <br><span class="font-weight-normal">fname@example.com</span>
+                            <h5 class="p-3">Firstname Lastname
                             <br><span class="font-weight-normal">+6391234567910</span>
                         </h5>
                     </ul>

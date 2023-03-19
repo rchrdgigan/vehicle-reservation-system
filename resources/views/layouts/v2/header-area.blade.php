@@ -33,7 +33,7 @@
                         <span class="user-img"><img src="{{asset('vendor/img/profiles/avator1.jpg')}}" alt="">
                         <span class="status online"></span></span>
                         <div class="profilesets">
-                            <h6>{{auth()->user()->fname . " " . auth()->user()->lname}}</h6>
+                            <h6>{{auth()->user()->fname . " " . auth()->user()->lname}} </h6>
                             <h5>Admin</h5>
                         </div>
                     </div>

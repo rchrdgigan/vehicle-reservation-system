@@ -31,7 +31,7 @@ class PageController extends Controller
         $vehicle_img = VehicleImage::get();
         $owners = Owner::get();
         $o_t_brand = Vehicle::where('brand_id',$vehicle->brand_id)->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
-        return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners'));
+        return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners','owner'));
     }
 
     public function vehicleList(){

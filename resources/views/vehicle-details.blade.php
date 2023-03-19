@@ -54,8 +54,12 @@ Details of Vehicle
                             <span class="bg-success text-white rounded p-1">{{($vehicle->is_approved == 'Approved')? 'Available' : ''}}</span>
                         </div>
                         <div class="single-add-to-cart">
-                            <form action="#" method="POST" class="cart-quantity">
-                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('user.cart')}}">Add to cart</a>
+                            <div class="cart-quantity">
+                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
+                                document.getElementById('add-cart').submit();">Add to cart</a>
+                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                                 <button type="submit" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center">Book Now</button>
                             </form>
                         </div>
@@ -107,7 +111,15 @@ Details of Vehicle
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
-                                            <li class="add-cart active"><a href="{{route('user.cart')}}">Add to cart</a></li>
+                                            
+                                            <li class="add-cart active">
+                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
+                                                document.getElementById('add-cart').submit();">Add to cart</a>
+                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                            </li>
+
                                             <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
