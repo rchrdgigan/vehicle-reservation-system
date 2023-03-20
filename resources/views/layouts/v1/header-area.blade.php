@@ -23,7 +23,7 @@
                         @else
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user-circle"></i> {{ Auth::user()->fname }}
+                                <i class="fa fa-user-circle"></i> Welcome, {{ Auth::user()->fname }}
                             </a>
                             @if(auth()->user()->is_admin != '1')
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -90,8 +90,13 @@
                         <ul class="hm-menu">
                             <li class="hm-wishlist">
                                 <a href="{{route('cart.list')}}">
+                                @guest
                                     <span class="cart-item-count wishlist-item-count">0</span>
                                     <span class="item-icon"></span>
+                                @else
+                                    <span class="cart-item-count wishlist-item-count">{{$count_cart}}</span>
+                                    <span class="item-icon"></span>
+                                @endguest
                                 </a>
                             </li>
                             

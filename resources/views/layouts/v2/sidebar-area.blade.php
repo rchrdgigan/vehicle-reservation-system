@@ -4,7 +4,7 @@
             <ul>
                 <li class="{{(request()->routeIs('admin.index'))? 'active' : ''}}"><a href="{{route('admin.index')}}"><img src="{{asset('vendor/img/icons/dashboard.svg')}}" alt="img"><span> Dashboard</span> </a></li>
                 <li class="submenu">
-                    <a href="javascript:void(0);" class="{{(request()->routeIs('admin.vehicle.*'))? 'active' : ''}}"><img src="{{asset('vendor/img/icons/grey-car-steering-wheel.svg')}}" alt="img"><span>Vehicle</span> <span class="menu-arrow"></span></a>
+                    <a href="javascript:void(0);" class="{{(request()->routeIs('admin.vehicle.*'))? 'active' : ''}}"><i class="me-2 fa fa-car"></i><span>Vehicle</span> <span class="menu-arrow"></span></a>
                     <ul>
                         <li><a class="{{(request()->routeIs('admin.vehicle.index'))? 'active' : ''}}" href="{{route('admin.vehicle.index')}}">Vehicle List</span></a></li>
                         <li><a class="{{(request()->routeIs('admin.vehicle.create'))? 'active' : ''}}" href="{{route('admin.vehicle.create')}}">Add Vehicle</span></a></li>

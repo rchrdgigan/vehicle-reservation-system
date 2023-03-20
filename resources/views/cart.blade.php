@@ -1,17 +1,26 @@
 @extends('layouts.app')
 
+@section('title')
+Your Cart |
+@endsection
+
+@section('breadcrumbs')
+Cart List
+@endsection
+
 @section('content')
-<!--Wishlist Area Strat-->
 <div class="wishlist-area pb-60">
     <div class="container">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
                 <strong>Success!</strong> {{ session('success') }}
             </div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <strong>Error!</strong> {{ session('error') }}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                <strong>Warning!</strong> {{ session('error') }}
             </div>
         @endif
         <div class="row">
@@ -32,16 +41,34 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($carts->where('status','Cart') as $cart)
                                 <tr>
-                                    <td class="li-product-remove"><a><i class="fa fa-times"></i></a></td>
-                                    <td class="li-product-thumbnail"><a href="#"><img height="75" src="{{asset('images/vrms-logo.png')}}"></a></td>
-                                    <td class="li-product-name"><a href="#">Toyota</a></td>
-                                    <td class="li-product-type"><span class="type">Bridal Car</span></td>
-                                    <td class="li-product-model"><span class="model">Innova - 2018</span></td>
-                                    <td class="li-product-seater"><span class="seater">6</span></td>
-                                    <td class="li-product-owner"><span class="owner">Pulano</span></td>
-                                    <td class="li-product-add-cart"><a href="">Book</a></td>
+                                    <td class="li-product-remove">
+                                        <a id="{{$cart->id}}" data-toggle="modal" data-target="#delCart"><i class="fa fa-times"></i></a>
+                                    </td>
+                                    @foreach($cart->vehicle_img->where('vehicle_id', $cart->vehicle_id)->take(1) as $img)
+                                    <td class="li-product-thumbnail"><a href="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}">
+                                        <img height="75"  src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
+                                    </td>
+                                    @endforeach
+                                    <td class="li-product-name"><a href="#">{{$cart->brand_name}}</a></td>
+                                    <td class="li-product-type">
+                                    @foreach($cart->vehicle_type as $typeid)
+                                        @foreach($types->where('id', $typeid->type_id)->take(1) as $type)
+                                        <span>{{$type->type ?? 'N/A'}}</span>
+                                        @if( !$loop->last)
+                                            ,
+                                        @endif
+                                        @endforeach
+                                    @endforeach</td>
+                                    <td class="li-product-model"><span class="model">{{$cart->vehicle_name. " - " .$cart->model_year}}</span></td>
+                                    <td class="li-product-seater"><span class="seater">{{$cart->seating_cap}}</span></td>
+                                    <td class="li-product-owner"><span class="owner">{{$cart->owner_name}}.</span></td>
+                                    <td class="li-product-add-cart">
+                                        <a href="">Book</a>
+                                    </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -50,6 +77,43 @@
         </div>
     </div>
 </div>
-<!--Wishlist Area End-->
+
+
+<!-- Modal Delete-->
+<div class="modal fade" id="delCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remove...?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="{{route('remove.cart')}}" id="delete_frm" method="post">
+        @method('DELETE')
+        @csrf
+        <div class="modal-body">
+            Are you sure want remove this vehicle in your cart?
+            <input type="hidden" id="cartId" name="id">
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button type="submit" class="btn btn-danger">Yes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 @endsection
+
+@push('scripts')
+<script>
+$('#delCart').on('show.bs.modal', function (e) {
+    var opener=e.relatedTarget;
+    var id=$(opener).attr('id');
+    $('#delete_frm').find('[name="id"]').val(id);
+});
+</script>
+@endpush

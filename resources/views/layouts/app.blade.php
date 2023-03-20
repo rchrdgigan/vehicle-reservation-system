@@ -67,5 +67,6 @@
     <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
     <script src="{{asset('js/scrollUp.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+    @stack('scripts')
 </body>
 </html>

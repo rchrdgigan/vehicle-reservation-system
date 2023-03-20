@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Vehicle,Brand,Owner,VehicleImage,Type,AssignVehicleType};
+use App\Models\{Vehicle,Brand,Owner,VehicleImage,Type,AssignVehicleType,Booking};
 use Carbon\Carbon;
 
 class PageController extends Controller
@@ -13,8 +13,8 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
-        
-        return view('welcome',compact('vehicles','brands','owners','vehicle_img'));
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('welcome',compact('vehicles','brands','owners','vehicle_img','count_cart'));
     }
 
     public function vehicleDetail($id){
@@ -31,7 +31,8 @@ class PageController extends Controller
         $vehicle_img = VehicleImage::get();
         $owners = Owner::get();
         $o_t_brand = Vehicle::where('brand_id',$vehicle->brand_id)->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
-        return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners','owner'));
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners','owner','count_cart'));
     }
 
     public function vehicleList(){
@@ -41,7 +42,8 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types'));
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
     public function vehicleFilteredBrand($id){
@@ -51,7 +53,8 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types'));
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
     public function vehicleFilteredType($id){
@@ -83,7 +86,8 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types'));
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
     public function ownerCars(){
