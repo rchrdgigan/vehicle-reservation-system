@@ -75,5 +75,7 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::delete('/user/cart/remove', [CartController::class, 'removeCart'])->name('remove.cart');
     Route::post('/user/booking/add/{vehicle_id}/{owner_id}', [CartController::class, 'addBooking'])->name('add.booking');
     Route::put('/user/update', [ProfileController::class, 'updateProfile'])->name('update.user');
+    Route::put('/user/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');
+    Route::post('/create/owner',[ProfileController::class, 'createOwner'])->name('create.owner');
 });
 Auth::routes();
