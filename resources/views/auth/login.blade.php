@@ -13,13 +13,6 @@ Login Form
     <div class="row justify-content-center">
         
         <div class="col-md-8">
-        @if (session('error'))
-        <div class="row">
-            <div class="col-md-12">
-                <div class="alert-danger text-center p-2">{{ session('error') }}</div>
-            </div>
-        </div>
-        @endif
             <div class="card">
                 <div class="login-form">
                 

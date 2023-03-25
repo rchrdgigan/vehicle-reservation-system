@@ -103,10 +103,7 @@
                 @endforelse
                 </div>
                 <div class="col-lg-12 pt-2">
-                    <a href="{{route('admin.vehicle.index')}}" class="btn btn-cancel">Back</a>
-                    @if($vehicle->is_approved == 'Pending')
-                        <a type="submit" href="{{route('admin.vehicle.aproved', $vehicle->id)}}" class="btn btn-submit me-2 float-end">Approved</a>
-                    @endif
+                    <a href="{{route('vehicle.index')}}" class="btn btn-cancel">Back</a>
                 </div>
             </div>
         </div>

@@ -30,12 +30,14 @@
                                 <a class="dropdown-item btn-secondary" href="{{route('home')}}">
                                     <i class="fa fa-user"></i> {{ __('My Account') }}
                                 </a>
-                                <a class="dropdown-item btn-secondary" href="#">
+                                <a class="dropdown-item btn-secondary" href="{{route('pending.booking')}}">
                                     <i class="fa fa-book"></i> {{ __('My Booking') }}
                                 </a>
+                                @if(auth()->user()->owner)
                                 <a class="dropdown-item btn-secondary" href="#">
                                     <i class="fa fa-car"></i> {{ __('My Car For Rent') }}
                                 </a>
+                                @endif
                                 <a class="dropdown-item text-danger btn-secondary" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
@@ -135,3 +137,15 @@
         </div>
     </div>
 </header>
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+        <strong>Success!</strong> {{ session('success') }}
+    </div>
+@endif
+@if (session('error'))
+    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+        <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+        <strong>Warning!</strong> {{ session('error') }}
+    </div>
+@endif

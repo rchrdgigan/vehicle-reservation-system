@@ -31,9 +31,9 @@
                 @csrf
                 @method('PUT')
                 <div class="profile-set">
-                    <div class="profile-head">
+                    <div class="profile-head" style="background: url({{asset('images/start-rental-business-bg/vehicle.jpg')}}) no-repeat center center fixed; background-size: cover;">
                     </div>
-                    <div class="profile-top">
+                    <div class="profile-top mt-2">
                         <div class="profile-content">
                             <div class="profile-contentimg">
                                 @if(isset(auth()->user()->image_prof))
@@ -167,7 +167,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
@@ -175,16 +175,17 @@
   </div>
 </div>
 
-
+@if(isset(auth()->user()->owner))
 <!-- Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="form-validation">
-            <form action="{{route('create.owner')}}" method="post" class="needs-validation">
+            <form action="{{route('owner.update')}}" method="post" class="needs-validation">
             @csrf
+            @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Setup Owner Account</h5>
+                    <h5 class="modal-title" id="editModalLabel">Update Owner's Account</h5>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 row">
@@ -192,10 +193,7 @@
                             Owner's First Name
                         </label>
                         <div class="col-lg-12">
-                            <input type="password" name="ofname" class="form-control" id="validationCustom01" placeholder="Enter your first name.." required>
-                            <div class="invalid-feedback">
-                                Please enter your first name.
-                            </div>
+                            <input type="text" name="ofname" class="form-control" id="validationCustom01" placeholder="Enter your first name.." value="{{auth()->user()->owner->owner_fname}}" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -203,10 +201,7 @@
                             Owner's Last Name
                         </label>
                         <div class="col-lg-12">
-                            <input type="password" name="olname" class="form-control" id="validationCustom01" placeholder="Enter your last name.." required>
-                            <div class="invalid-feedback">
-                                Please enter your last name.
-                            </div>
+                            <input type="text" name="olname" class="form-control" id="validationCustom01" placeholder="Enter your last name.." value="{{auth()->user()->owner->owner_lname}}" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
@@ -214,10 +209,53 @@
                             Owner's Contact Number
                         </label>
                         <div class="col-lg-12">
-                            <input type="password" name="ocontact" class="form-control" id="validationCustom01" placeholder="Enter your contact.." required>
-                            <div class="invalid-feedback">
-                                Please enter your contact.
-                            </div>
+                            <input type="text" name="ocontact" class="form-control" id="validationCustom01" placeholder="Enter your contact.." value="{{auth()->user()->owner->contact}}" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
+@else
+<!-- Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="form-validation">
+            <form action="{{route('owner.store')}}" method="post" class="needs-validation">
+            @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Setup Owner's Account</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3 row">
+                        <label class="col-lg-12 col-form-label" for="validationCustom01">
+                            Owner's First Name
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="text" name="ofname" class="form-control" id="validationCustom01" placeholder="Enter your first name.." required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-12 col-form-label" for="validationCustom01">
+                            Owner's Last Name
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="text" name="olname" class="form-control" id="validationCustom01" placeholder="Enter your last name.." required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label class="col-lg-12 col-form-label" for="validationCustom01">
+                            Owner's Contact Number
+                        </label>
+                        <div class="col-lg-12">
+                            <input type="text" name="ocontact" class="form-control" id="validationCustom01" placeholder="Enter your contact.." required>
                         </div>
                     </div>
                 </div>
@@ -230,4 +268,6 @@
     </div>
   </div>
 </div>
+@endif
+
 @endsection

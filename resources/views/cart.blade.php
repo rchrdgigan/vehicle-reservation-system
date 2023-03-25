@@ -11,18 +11,6 @@ Cart List
 @section('content')
 <div class="wishlist-area pb-60">
     <div class="container">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
-                <strong>Success!</strong> {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <span type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></span>
-                <strong>Warning!</strong> {{ session('error') }}
-            </div>
-        @endif
         <div class="row">
             <div class="col-12">
                 <form action="#">
@@ -41,14 +29,16 @@ Cart List
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($carts->where('status','Cart') as $cart)
+                                @foreach($carts->where('status','Cart')->where('user_id',auth()->user()->id) as $cart)
                                 <tr>
                                     <td class="li-product-remove">
                                         <a id="{{$cart->id}}" data-toggle="modal" data-target="#delCart"><i class="fa fa-times"></i></a>
                                     </td>
                                     @foreach($cart->vehicle_img->where('vehicle_id', $cart->vehicle_id)->take(1) as $img)
-                                    <td class="li-product-thumbnail"><a href="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}">
-                                        <img height="75"  src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
+                                    <td class="li-product-thumbnail">
+                                        <a href="{{route('vehicle.details',  $cart->vehicle_id)}}">
+                                            <img height="75"  src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
+                                        </a>
                                     </td>
                                     @endforeach
                                     <td class="li-product-name"><a href="#">{{$cart->brand_name}}</a></td>
@@ -65,7 +55,7 @@ Cart List
                                     <td class="li-product-seater"><span class="seater">{{$cart->seating_cap}}</span></td>
                                     <td class="li-product-owner"><span class="owner">{{$cart->owner_name}}.</span></td>
                                     <td class="li-product-add-cart">
-                                        <a href="">Book</a>
+                                       <a href="{{route('add.booking.cart', ['id' => $cart->id ,'vehicle_id' => $cart->vehicle_id , 'owner_id' => $cart->owner_id])}}" class="btn btn-sm btn-dark">Book</a>
                                     </td>
                                 </tr>
                                 @endforeach

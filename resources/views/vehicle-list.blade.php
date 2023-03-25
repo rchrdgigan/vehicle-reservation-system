@@ -49,19 +49,11 @@ List of Vehicle
                                                                 <a><span class="product-details-ref">Status:</span> {{ ($vehicle->is_approved == 'Approved')? 'Available' : ''}}</a><br>
                                                             </h5>
                                                         </div>
-                                                        @if(request()->routeIs('vehicle.filter.type'))
-                                                            @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
-                                                                @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                                                <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
-                                                                @endforeach
+                                                        @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                                            @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
                                                             @endforeach
-                                                        @else
-                                                            @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
-                                                                @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                                                <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
-                                                                @endforeach
-                                                            @endforeach
-                                                        @endif
+                                                        @endforeach
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">

@@ -43,12 +43,6 @@ class DatabaseSeeder extends Seeder
 
         $owner = [
             [
-                'user_id'=>'1',
-                'owner_fname'=>'Admin Firstname',
-                'owner_lname'=>'Lastname',
-                'contact'=>'09323123122',
-            ],
-            [
                 'user_id'=>'2',
                 'owner_fname'=>'User Firstname',
                 'owner_lname'=>'Lastname',

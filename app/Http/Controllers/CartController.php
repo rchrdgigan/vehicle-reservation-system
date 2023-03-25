@@ -9,23 +9,30 @@ use App\Models\Owner;
 use App\Models\User;
 use App\Models\Type;
 use App\Models\Vehicle;
+use App\Models\AssignVehicleOwner;
 use Carbon\Carbon;
 
 class CartController extends Controller
 {
     public function addCart($vehicle_id,$owner_id){
-        $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->get();
-        if($book->isEmpty()){
-            $book = Booking::create([
-                'user_id'=>auth()->user()->id,
-                'vehicle_id'=>$vehicle_id,
-                'owner_id'=>$owner_id,
-                'status'=>'Cart',
-            ]);
-            return redirect()->route('cart.list')->with("success","Successfully Added to Cart!");
+        $owner_vehicle = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id ?? '')->where('vehicle_id', $vehicle_id)->get();
+        if($owner_vehicle->isEmpty()){
+            $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->get();
+            if($book->isEmpty()){
+                $book = Booking::create([
+                    'user_id'=>auth()->user()->id,
+                    'vehicle_id'=>$vehicle_id,
+                    'owner_id'=>$owner_id,
+                    'status'=>'Cart',
+                ]);
+                return redirect()->route('cart.list')->with("success","Successfully Added to Cart!");
+            }else{
+                return redirect()->route('cart.list')->with("error","Car Already Exist to Cart!");
+            }
         }else{
-            return redirect()->route('cart.list')->with("error","Car Already Exist to Cart!");
+            return redirect()->back()->with("error","You cannot add to cart your owned vehicle!");
         }
+        
     }
 
     public function listCart()
@@ -63,23 +70,4 @@ class CartController extends Controller
         return redirect()->route('cart.list')->with("success","Vehicle Removed!");;
     }
 
-    public function addBooking($vehicle_id,$owner_id){
-        $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->get();
-        if(!$book){
-            $book = Booking::create([
-                'user_id'=>auth()->user()->id,
-                'vehicle_id'=>$vehicle_id,
-                'owner_id'=>$owner_id,
-                'status'=>'Pending',
-            ]);
-            return redirect()->route('cart.list')->with("success","Successfully Added to Booking list!");;
-        }else{
-            $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->first();
-            $book->status = 'Pending';
-            $book->update();
-            return redirect()->route('cart.list')->with("success","Successfully Added to Booking list!");
-        }
-    }
-
-    
 }

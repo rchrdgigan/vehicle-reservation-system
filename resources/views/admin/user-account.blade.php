@@ -36,7 +36,6 @@
                         <table class="table datanew">
                             <thead>
                             <tr>
-                                
                                 <th>Date Created</th>
                                 <th>Users Name</th>
                                 <th>Users Email</th>
@@ -47,7 +46,7 @@
                             </thead>
                             <tbody>
                             
-                            @foreach($users as $user)
+                            @foreach($users->where('is_admin', false) as $user)
                             <tr>
                                 <td>{{ Carbon\Carbon::parse($user->createdAt)->format('d M Y')}}</td>
                                 <td>{{$user->name}}</td>

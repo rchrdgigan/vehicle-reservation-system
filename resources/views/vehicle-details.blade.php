@@ -60,7 +60,7 @@ Details of Vehicle
                                 <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
                                     @csrf
                                 </form>
-                                <button type="submit" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center">Book Now</button>
+                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.booking',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Book Now</a>
                             </form>
                         </div>
                     </div>

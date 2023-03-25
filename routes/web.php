@@ -9,11 +9,13 @@ use App\Http\Controllers\{
     UserAccountController,
     CartController,
     ProfileController,
+    OwnerController,
+    BookingController,
 };
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
-Route::get('/vehicle/list', [PageController::class, 'vehicleList'])->name('vehicle.list');
+Route::get('/vehicle/list/all', [PageController::class, 'vehicleList'])->name('vehicle.list');
 Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilteredBrand'])->name('vehicle.filter.brand');
 Route::get('/vehicle/list/type/{type}', [PageController::class, 'vehicleFilteredType'])->name('vehicle.filter.type');
 Route::get('/vehicle/details/{id}', [PageController::class, 'vehicleDetail'])->name('vehicle.details');
@@ -35,6 +37,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
             Route::get('/edit/{id}', 'edit')->name('edit');
             Route::put('/update/{id}', 'update')->name('update');
             Route::delete('/destroy', 'destroy')->name('destroy');
+            Route::get('/update/info/{id}', 'approvedVehicle')->name('aproved');
             Route::controller(BrandController::class)
             ->as('brand.')
             ->prefix('brand')
@@ -74,9 +77,24 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/user/cart/list', [CartController::class, 'listCart'])->name('cart.list');
     Route::post('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
     Route::delete('/user/cart/remove', [CartController::class, 'removeCart'])->name('remove.cart');
-    Route::post('/user/booking/add/{vehicle_id}/{owner_id}', [CartController::class, 'addBooking'])->name('add.booking');
     Route::put('/user/update', [ProfileController::class, 'updateProfile'])->name('update.user');
     Route::put('/user/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');
-    Route::post('/create/owner',[ProfileController::class, 'createOwner'])->name('create.owner');
+    Route::post('/owner/store',[OwnerController::class, 'store'])->name('owner.store');
+    Route::put('/owner/update',[OwnerController::class, 'update'])->name('owner.update');
+    Route::get('/user/booking/pending', [BookingController::class, 'index'])->name('pending.booking');
+    Route::get('/user/booking/add/{vehicle_id}/{owner_id}', [BookingController::class, 'addBooking'])->name('add.booking');
+    Route::get('/user/booking/add/cart/{id}/{vehicle_id}/{owner_id}', [BookingController::class, 'addBookingFromCart'])->name('add.booking.cart');
+    Route::get('/user/booking/cancel', [BookingController::class, 'cancelledBookingList'])->name('cancelled.booking.list');
+    Route::put('/user/booking/cancel', [BookingController::class, 'cancelledBooking'])->name('cancel.booking');
+    Route::get('/user/booking/history', [BookingController::class, 'historyBookingList'])->name('history.booking.list');
+    Route::get('/user/vehicle/index', [VehicleController::class, 'vehicleList'])->name('vehicle.index');
+    Route::get('/user/vehicle/create', [VehicleController::class, 'vehicleCreate'])->name('vehicle.create');
+    Route::post('/user/vehicle/store', [VehicleController::class, 'vehicleStore'])->name('vehicle.store');
+    Route::get('/user/vehicle/show/{id}', [VehicleController::class, 'vehicleShow'])->name('vehicle.show');
+    Route::get('/user/vehicle/edit/{id}', [VehicleController::class, 'vehicleEdit'])->name('vehicle.edit');
+    Route::delete('/user/vehicle/destroy', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
+    Route::put('/user/vehicle/update/{id}', [VehicleController::class, 'vehicleUpdate'])->name('vehicle.update');
+    Route::get('/user/vehicle/expired', [VehicleController::class, 'vehicleExpired'])->name('vehicle.expired');
+    
 });
 Auth::routes();
