@@ -12,15 +12,6 @@
                         <li><a class="{{(request()->routeIs('admin.vehicle.brand.*'))? 'active' : ''}}" href="{{route('admin.vehicle.brand.index')}}">Brand Management</span></a></li>
                     </ul>
                 </li>
-                <li class="submenu">
-                    <a href="javascript:void(0);"><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span>Customer Booking</span> <span class="menu-arrow"></span></a>
-                    <ul>
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Approved</a></li>
-                        <li><a href="#">Completed</a></li>
-                        <li><a href="#">All History Booking</a></li>
-                    </ul>
-                </li>
                 <li class="{{(request()->routeIs('admin.user.*'))? 'active' : ''}}"><a href="{{route('admin.user.index')}}"><img src="{{asset('vendor/img/icons/users1.svg')}}" alt="img"><span> Users Account List</span> </a></li>
               
             </ul>

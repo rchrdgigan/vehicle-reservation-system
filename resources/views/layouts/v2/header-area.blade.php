@@ -50,12 +50,16 @@
                     </div>
                     <hr class="m-0">
                     <a class="dropdown-item" href="{{route('admin.show.profile')}}"> <i class="me-2" data-feather="user"></i> My Profile</a>
+                    <a type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changepassModal">
+                        <i class="fa fa-key me-2"></i> Change Password
+                    </a>
                     <hr class="m-0">
                     <a class="dropdown-item logout pb-0" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();"><img src="{{asset('vendor/img/icons/log-out.svg')}}" class="me-2" alt="img">Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+                    
                 </div>
             </div>
         </li>
@@ -71,4 +75,63 @@
         </div>
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="changepassModal" tabindex="-1" aria-labelledby="changepassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="form-validation">
+                <form action="{{route('admin.update.password')}}" method="post" class="needs-validation">
+                @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="changepassModalLabel">Change Password</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3 row">
+                            <label class="col-lg-12 col-form-label" for="validationCustom01">
+                                Old Password
+                            </label>
+                            <div class="col-lg-12">
+                                <input type="password" name="old_password" class="form-control" id="validationCustom01" placeholder="Enter your current password.." required="">
+                                <div class="invalid-feedback">
+                                    Please enter your old password.
+                                </div>
+                            </div>
+                            @error('old_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-lg-12 col-form-label" for="validationCustom01">
+                                New Password
+                            </label>
+                            <div class="col-lg-12">
+                                <input type="password" name="new_password" class="form-control" id="validationCustom01" placeholder="Enter your new password.." required="">
+                                <div class="invalid-feedback">
+                                    Please enter your new password.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label class="col-lg-12 col-form-label" for="validationCustom01">
+                                Confirmation Password
+                            </label>
+                            <div class="col-lg-12">
+                                <input type="password" name="new_password_confirmation" class="form-control" id="validationCustom01" placeholder="Enter your new password.." required="">
+                                <div class="invalid-feedback">
+                                    Please enter your new password.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

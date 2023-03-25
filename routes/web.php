@@ -23,6 +23,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::get('/', [HomeController::class, 'adminHome'])->name('index');
         Route::get('/profile', [ProfileController::class, 'showProfile'])->name('show.profile');
         Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('update.profile');
+        Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');
         Route::controller(VehicleController::class)
         ->as('vehicle.')
         ->prefix('vehicle')

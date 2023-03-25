@@ -53,17 +53,17 @@ class ProfileController extends Controller
         ]);
 
         if(!Hash::check($request->old_password, auth()->user()->password)){
-            return redirect()->route('home')->with("error", "Old Password Doesn't match!");
+            return back()->with("error", "Old Password Doesn't match!");
         }
 
         if($request->new_password != $request->new_password_confirmation){
-            return redirect()->route('home')->with("error", "Confirmation Password Doesn't match!");
+            return back()->with("error", "Confirmation Password Doesn't match!");
         }
 
         User::whereId(auth()->user()->id)->update([
             'password' => Hash::make($request->new_password)
         ]);
 
-        return redirect()->route('home')->with("success", "Password changed successfully!");
+        return back()->with("success", "Password changed successfully!");
     }
 }

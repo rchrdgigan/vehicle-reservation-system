@@ -3,6 +3,20 @@
 @section('content')
 <div class="content">
     <div class="row">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong> {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    </div>
+    <div class="row">
         <div class="col-lg-4 col-sm-6 col-12 d-flex">
             <div class="dash-count">
                 <div class="dash-counts">
