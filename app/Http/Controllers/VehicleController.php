@@ -23,7 +23,14 @@ class VehicleController extends Controller
         return view('admin.vehicle-list',compact('vehicles','brands','owners'));
     }
 
-   
+    public function expired()
+    {
+        $brands = Brand::get();
+        $owners = Owner::get();
+        $vehicles = Vehicle::with('assign_vehicle_owner')->where('vehicle_exp', '<' , Carbon::now()->format('Y-m-d'))->get();
+        return view('admin.expired-vehicle',compact('vehicles','brands','owners'));
+    }
+
     public function create()
     {
         $brands = Brand::get();
@@ -190,7 +197,7 @@ class VehicleController extends Controller
 
         $avo = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id)->get();
         $avo->map(function($item){
-            $vehicle = Vehicle::with('vehicle_image')->with('assign_vehicle_type')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->findOrFail($item->vehicle_id);
+            $vehicle = Vehicle::with('vehicle_image')->with('assign_vehicle_type')->findOrFail($item->vehicle_id);
             $item->plate_no = $vehicle->plate_no;
             $item->vehicle_exp = $vehicle->vehicle_exp;
             $item->vehicle_name = $vehicle->vehicle_name;

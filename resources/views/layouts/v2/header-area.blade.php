@@ -1,10 +1,10 @@
 <div class="header">
 
     <div class="header-left active" style="overflow:hidden">
-        <a href="{{url('/admin/')}}" class="logo mt-2">
+        <a href="{{url('/')}}" class="logo mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
-        <a href="{{url('/admin/')}}" class="logo-small mt-2">
+        <a href="{{url('/')}}" class="logo-small mt-2">
             <img src="{{asset('images/vrms-logo.png')}}" alt="">
         </a>
         <a id="toggle_btn" href="javascript:void(0);">
@@ -69,9 +69,14 @@
     <div class="dropdown mobile-user-menu">
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="#">My Profile</a>
-            <a class="dropdown-item" href="#">Change Password</a>
-            <a class="dropdown-item" href="#">Logout</a>
+            <a class="dropdown-item" href="{{route('admin.show.profile')}}">My Profile</a>
+            <a class="dropdown-item" href="{{route('admin.show.profile')}}">Change Password</a>
+            <a class="dropdown-item" href="#"
+                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
         </div>
     </div>
 

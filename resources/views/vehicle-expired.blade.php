@@ -61,9 +61,6 @@
                             <a class="me-3" href="{{route('vehicle.show', $vehicle->id)}}">
                                 <img src="{{asset('vendor/img/icons/eye.svg')}}" alt="img">
                             </a>
-                            <a class="me-3" href="{{route('vehicle.edit', $vehicle->id)}}">
-                                <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
-                            </a>
                             <a type="button" data-bs-toggle="modal" id="{{$vehicle->id}}"  data-bs-target="#delModal">
                                 <img src="{{asset('vendor/img/icons/delete.svg')}}" alt="img">
                             </a>

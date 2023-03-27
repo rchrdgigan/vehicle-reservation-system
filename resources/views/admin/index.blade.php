@@ -42,7 +42,7 @@
         <div class="col-lg-4 col-sm-12 col-12 d-flex">
             <div class="dash-count das2">
                 <div class="dash-counts">
-                    <h4>0</h4>
+                    <h4>{{$total_bk_cnt}}</h4>
                     <h5>Booking</h5>
                 </div>
                 <div class="dash-imgs">
@@ -56,9 +56,8 @@
         <div class="col-lg-7 col-sm-12 col-12 d-flex">
             <div class="card flex-fill">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Vehicle Rent Report</h5>
+                    <h5 class="card-title mb-0">Vehicle Booking Report</h5>
                     <div class="graph-sets">
-                       
                         <div class="dropdown">
                             <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                 2022 <img src="{{asset('vendor/img/icons/dropdown.svg')}}" alt="img" class="ms-2">
@@ -78,6 +77,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+                {!! $chart->container() !!}
                 </div>
             </div>
         </div>
@@ -179,3 +179,8 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.1.0/dist/frappe-charts.min.iife.js"></script>
+{!! $chart->script() !!}
+@endpush

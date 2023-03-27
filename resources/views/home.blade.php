@@ -58,7 +58,7 @@
 
                                 <li class="dropdown-item">
                                     <a type="button" class="p-2 text-dark" style="margin:-8px;" data-bs-toggle="modal" data-bs-target="#editModal">
-                                    <i class="fa fa-car me-2"></i> Start Your Own Car <br> Rental Business
+                                    <i class="fa fa-car me-2"></i> Setup Your Own Car <br> Rental Business
                                     </a>
                                 </li>
                                 <li class="dropdown-item">
@@ -185,7 +185,7 @@
             @csrf
             @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Update Owner's Account</h5>
+                    <h5 class="modal-title" id="editModalLabel">Update Owner's Info</h5>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3 row">

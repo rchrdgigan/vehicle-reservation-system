@@ -4,8 +4,8 @@
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Booking History</h4>
-            <h6>See all your booking history</h6>
+            <h4>Customer Pending List</h4>
+            <h6>Manage customer pending booking</h6>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            @if(auth()->user()->is_admin == '1')
+
             <div class="table-responsive">
                 <table class="table datanew">
                     <thead>
@@ -39,13 +39,13 @@
                         <th>Name/Model</th>
                         <th>Brand</th>
                         <th>Seater</th>
-                        <th>Owner</th>
-                        <th>Tenant</th>
+                        <th>Tenant/Contact</th>
                         <th>Status</th>
+                        <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach($books->where('status', '<>', 'Cart') as $book)
+                        @foreach($books->where('status','Pending')->where('owner_id',auth()->user()->owner->id) as $book)
                         <tr>
                             <td>
                             @foreach($book->vehicle_img->where('vehicle_id', $book->vehicle_id)->take(1) as $img)
@@ -57,48 +57,17 @@
                             <td>{{$book->brand_name}}</td>
                             <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
                             <td>{{$book->seating_cap}}</td>
-                            <td>{{$book->owner_name}}.</td>
-                            <td>{{$book->name}}</td>
-                            <td><a class="{{($book->status == 'Pending')? 'bg-danger' : ($book->status == 'Cancelled' ? 'bg-secondary' : 'bg-success')}} text-white rounded">{{$book->status}}</a></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            @else
-            <div class="table-responsive">
-                <table class="table datanew">
-                    <thead>
-                    <tr>
-                        <th>Images</th>
-                        <th>Name/Model</th>
-                        <th>Brand</th>
-                        <th>Seater</th>
-                        <th>Owner</th>
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($books->where('status', '<>', 'Cart')->where('user_id',auth()->user()->id) as $book)
-                        <tr>
+                            <td>{{$book->name}} - {{$book->contact}}</td>
+                            <td><a class="bg-danger text-white rounded">Pending</a></td>
                             <td>
-                            @foreach($book->vehicle_img->where('vehicle_id', $book->vehicle_id)->take(1) as $img)
-                                <a href="{{route('vehicle.details',  $book->vehicle_id)}}">
-                                    <img width="50" src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="vehicle">
-                                </a>
-                            @endforeach
+                                <button type="button" id="{{$book->id}}" class="btn btn-sm btn-success m-2" data-bs-toggle="modal" data-bs-target="#approvedModal"><i class="fa fa-check"></i> Approved</a>
+                                <button type="button" id="{{$book->id}}" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fa fa-times"></i> Cancel</a>
                             </td>
-                            <td>{{$book->brand_name}}</td>
-                            <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
-                            <td>{{$book->seating_cap}}</td>
-                            <td>{{$book->owner_name}}.</td>
-                            <td><a class="{{($book->status == 'Pending')? 'bg-danger' : ($book->status == 'Cancelled' ? 'bg-secondary' : 'bg-success')}} text-white rounded">{{$book->status}}</a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-            @endif
         </div>
     </div>
 </div>
@@ -126,14 +95,38 @@
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="approvedModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form action="{{route('approved.customer')}}" method="post" id="app_frm">
+            @csrf
+            @method('PUT')
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Approved...?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input name="id" type="hidden">
+                <p>Are you sure you want to approved this booking?</p>
+            </div>
+            <div class="modal-footer float-end">
+                <button type="submit" class="btn btn-danger">Yes</button>
+                <a class="btn btn-cancel" data-bs-dismiss="modal" aria-label="Close">No</a>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('scripts')
 <script>
-$('#cancelModal').on('show.bs.modal', function (e) {
+$('#approvedModal').on('show.bs.modal', function (e) {
     var opener=e.relatedTarget;
     var id=$(opener).attr('id');
-    $('#cancel_frm').find('[name="id"]').val(id);
+    $('#app_frm').find('[name="id"]').val(id);
 });
 </script>
 @endpush

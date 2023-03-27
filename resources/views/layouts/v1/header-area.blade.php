@@ -52,7 +52,7 @@
                                 <a class="dropdown-item btn-secondary" href="{{route('admin.index')}}">
                                     <i class="fa fa-tachometer"></i> {{ __('Dashboard') }}
                                 </a>
-                                <a class="dropdown-item btn-secondary" href="#">
+                                <a class="dropdown-item btn-secondary" href="{{route('admin.show.profile')}}">
                                     <i class="fa fa-user"></i> {{ __('My Profile') }}
                                 </a>
                                 <a class="dropdown-item text-danger btn-secondary" href="#"

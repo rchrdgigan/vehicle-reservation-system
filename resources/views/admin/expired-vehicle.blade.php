@@ -4,11 +4,11 @@
 <div class="content">
     <div class="page-header">
         <div class="page-title">
-            <h4>Vehicles List</h4>
-            <h6>Manage all vehicles</h6>
+            <h4>Expired Vehicles List</h4>
+            <h6>View expired vehicles</h6>
         </div>
         <div class="page-btn">
-            <a href="{{route('vehicle.create')}}" class="btn btn-added"><img src="{{asset('vendor/img/icons/plus.svg')}}" alt="img" class="me-1">Add Vehicles</a>
+            <a href="{{route('admin.vehicle.create')}}" class="btn btn-added"><img src="{{asset('vendor/img/icons/plus.svg')}}" alt="img" class="me-1">Add Vehicles</a>
         </div>
     </div>
 
@@ -46,26 +46,31 @@
                         <th>Brand</th>
                         <th>Seater</th>
                         <th>Date Expired</th>
+                        <th>Owner</th>
                         <th>Status</th>
                         <th class="text-center">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($avo->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
+                    @foreach($vehicles->where('vehicle_exp', '<' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
                     <tr>
                         <td>{{Carbon\Carbon::now()->format('y').'-'.str_pad($vehicle->id, 5, '0', STR_PAD_LEFT)}}</td>
                         <td>{{ Carbon\Carbon::parse($vehicle->createdAt)->format('d M Y')}}</td>
                         <td>{{$vehicle->vehicle_name . " - " .$vehicle->model_year}}</td>
-                        <td>{{ $vehicle->brand_name }}</td>
+                        @foreach($brands->where('id', $vehicle->brand_id)->take(1) as $brand)
+                        <td>{{ $brand->brand }}</td>
+                        @endforeach
                         <td>{{ $vehicle->seating_cap }}</td>
                         <td>{{ Carbon\Carbon::parse($vehicle->vehicle_exp)->format('d M Y')}}</td>
+                        @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                            @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                            <td>{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</td>
+                            @endforeach
+                        @endforeach
                         <td><span class="badges {{($vehicle->is_approved == 'Pending') ? 'bg-lightred' : 'bg-lightgreen'}}">{{ $vehicle->is_approved }}</span></td>
                         <td class="text-center">
-                            <a class="me-3" href="{{route('vehicle.show', $vehicle->id)}}">
+                            <a class="me-3" href="{{route('admin.vehicle.show', $vehicle->id)}}">
                                 <img src="{{asset('vendor/img/icons/eye.svg')}}" alt="img">
-                            </a>
-                            <a class="me-3" href="{{route('vehicle.edit', $vehicle->id)}}">
-                                <img src="{{asset('vendor/img/icons/edit.svg')}}" alt="img">
                             </a>
                             <a type="button" data-bs-toggle="modal" id="{{$vehicle->id}}"  data-bs-target="#delModal">
                                 <img src="{{asset('vendor/img/icons/delete.svg')}}" alt="img">
@@ -84,7 +89,7 @@
 <div class="modal fade" id="delModal">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form action="{{route('vehicle.destroy')}}" method="post" id="delete_frm">
+        <form action="{{route('admin.vehicle.destroy')}}" method="post" id="delete_frm">
             @csrf
             @method('DELETE')
             <div class="modal-header">

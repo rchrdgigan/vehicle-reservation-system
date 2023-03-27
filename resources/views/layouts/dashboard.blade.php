@@ -52,7 +52,7 @@
 <script src="{{asset('vendor/plugins/select2/js/select2.min.js')}}"></script>
 <script src="{{asset('vendor/js/moment.min.js')}}"></script>
 <script src="{{asset('vendor/js/bootstrap-datetimepicker.min.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 @stack('scripts')
 </body>
 </html>

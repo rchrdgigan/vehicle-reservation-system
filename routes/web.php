@@ -11,6 +11,7 @@ use App\Http\Controllers\{
     ProfileController,
     OwnerController,
     BookingController,
+    CustomerController
 };
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,13 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'showProfile'])->name('show.profile');
         Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('update.profile');
         Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');
+        Route::get('/booking/history', [BookingController::class, 'historyBookingList'])->name('history.booking.list');
         Route::controller(VehicleController::class)
         ->as('vehicle.')
         ->prefix('vehicle')
         ->group(function(){
             Route::get('/', 'index')->name('index');
+            Route::get('/expired', 'expired')->name('expired');
             Route::get('/create', 'create')->name('create');
             Route::post('/store', 'store')->name('store');
             Route::get('/show/{id}', 'show')->name('show');
@@ -87,6 +90,8 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/user/booking/cancel', [BookingController::class, 'cancelledBookingList'])->name('cancelled.booking.list');
     Route::put('/user/booking/cancel', [BookingController::class, 'cancelledBooking'])->name('cancel.booking');
     Route::get('/user/booking/history', [BookingController::class, 'historyBookingList'])->name('history.booking.list');
+    Route::get('/user/booking/approved', [BookingController::class, 'approveBookingList'])->name('approved.booking.list');
+    Route::get('/user/booking/done', [BookingController::class, 'doneBookingList'])->name('done.booking.list');
     Route::get('/user/vehicle/index', [VehicleController::class, 'vehicleList'])->name('vehicle.index');
     Route::get('/user/vehicle/create', [VehicleController::class, 'vehicleCreate'])->name('vehicle.create');
     Route::post('/user/vehicle/store', [VehicleController::class, 'vehicleStore'])->name('vehicle.store');
@@ -95,6 +100,12 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::delete('/user/vehicle/destroy', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
     Route::put('/user/vehicle/update/{id}', [VehicleController::class, 'vehicleUpdate'])->name('vehicle.update');
     Route::get('/user/vehicle/expired', [VehicleController::class, 'vehicleExpired'])->name('vehicle.expired');
-    
+    Route::get('/user/customer/index', [CustomerController::class, 'index'])->name('owner.index');
+    Route::get('/user/customer/cancel', [CustomerController::class, 'cancelledCustomerList'])->name('cancel.customer.list');
+    Route::put('/user/customer/cancel', [CustomerController::class, 'cancelledCustomer'])->name('cancel.customer');
+    Route::get('/user/customer/approved', [CustomerController::class, 'approvedCustomerList'])->name('approved.customer.list');
+    Route::put('/user/customer/approved', [CustomerController::class, 'approvedCustomer'])->name('approved.customer');
+    Route::get('/user/customer/done', [CustomerController::class, 'doneCustomerList'])->name('done.customer.list');
+    Route::put('/user/customer/done', [CustomerController::class, 'doneCustomer'])->name('done.customer');
 });
 Auth::routes();
