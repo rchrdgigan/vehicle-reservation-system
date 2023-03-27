@@ -30,36 +30,58 @@ Owner's Vehicle
                             <div class="product-area shop-product-area">
                                 <div class="row">
 
-                                    <div class="col-lg-4 col-md-4 col-sm-6 mt-40">
-                                        <div class="single-product-wrap">
-                                            <div class="product-image">
-                                                <a href="">
-                                                    <img height="250" src="{{asset('images/na/car-not-avail.jpg')}}">
-                                                </a>
-                                            </div>
-                                            <div class="product_desc">
-                                                <div class="product_desc_info">
-                                                    <div class="product-review">
-                                                        <h5 class="manufacturer">
-                                                            <a><span class="product-details-ref">Brand:</span> Toyota</a><br>
-                                                            <a><span class="product-details-ref">Model:</span> Innova - 2018</a><br>
-                                                            <a><span class="product-details-ref">Seater:</span> 6</a><br>
-                                                            <a><span class="product-details-ref">Booking Type:</span> Bridal Car, Sports Car, Party Car</a><br>
-                                                        </h5>
-                                                    </div>
-                                                    <h4><a class="product_name" href="{{route('owner.car')}}">Owner Name</a></h4>
-                                                    
+                                    @forelse($vehicles->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
+                                        <div class="col-lg-4 col-md-4 col-sm-4 mt-40">
+                                            <div class="single-product-wrap">
+                                                <div class="product-image static-image">
+                                                    <a href="{{route('vehicle.details', $vehicle->id)}}">
+                                                        @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                                        <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="VRMS Car's">
+                                                        @endforeach
+                                                    </a>
                                                 </div>
-                                                <div class="add-actions">
-                                                    <ul class="add-actions-link">
-                                                        <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                        <li><a href="#" title="quick view" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
-                                                    </ul>
+                                                <div class="product_desc">
+                                                    <div class="product_desc_info">
+                                                        <div class="product-review">
+                                                            <h5 class="manufacturer">
+                                                            @foreach($brands->where('id', $vehicle->brand_id)->take(1) as $brand)
+                                                                <a><span class="product-details-ref">Brand:</span> {{ $brand->brand }}</a><br>
+                                                            @endforeach
+                                                                <a><span class="product-details-ref">Model:</span> {{$vehicle->vehicle_name . " - " .$vehicle->model_year}}</a><br>
+                                                                <a><span class="product-details-ref">Seater:</span> {{ $vehicle->seating_cap }}</a><br>
+                                                                <a><span class="product-details-ref">Status:</span> {{ ($vehicle->is_approved == 'Approved')? 'Available' : ''}}</a><br>
+                                                            </h5>
+                                                        </div>
+                                                        @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
+                                                            @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
+                                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                            @endforeach
+                                                        @endforeach
+                                                    </div>
+                                                    <div class="add-actions">
+                                                        <ul class="add-actions-link">
+                                                           
+                                                            <li class="add-cart active">
+                                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
+                                                                document.getElementById('add-cart').submit();">Add to cart</a>
+                                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
+                                                                    @csrf
+                                                                </form>
+                                                            </li>
+
+                                                            <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                        @empty
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <img src="{{asset('/images/na/ndf.png')}}" class="rounded" width="100%">
+                                            </div>
+                                        </div>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>
@@ -72,8 +94,8 @@ Owner's Vehicle
                 
                     <ul>
                         <li><a href=""><img height="150" width="150" src="{{asset('images/na/car-not-avail.jpg')}}" class="rounded-circle" alt="" /></a></li>
-                            <h5 class="p-3">Firstname Lastname
-                            <br><span class="font-weight-normal">+6391234567910</span>
+                            <h5 class="p-3">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.
+                            <br><span class="font-weight-normal">{{$owner->contact}}</span>
                         </h5>
                     </ul>
                     
@@ -86,22 +108,31 @@ Owner's Vehicle
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Vehicle Type</h5>
                         <div class="categori-checkbox">
-                            
-                                <ul>
-                                    <li><a href="#">Bridal Car (1)</a></li>
-                                    <li><a href="#">SUV Car (3)</a></li>
-                                </ul>
+                            @foreach($types as $d2)
+                            <ul>
+                                @forelse($d2->assign_vehicle_type->take(1) as $c1)
+                                <li><a href="{{route('vehicle.filter.type',$d2->id)}}">{{$d2->type}} ({{$c1->where('type_id',$d2->id)->count()}})</a></li>
+                                
+                                @empty
+                                
+                                @endforelse
+                            </ul>
+                            @endforeach
                         </div>
                     </div>
-
                     <div class="filter-sub-area pt-sm-10 pt-xs-10">
                         <h5 class="filter-sub-titel">Vehicle Brand</h5>
                         <div class="categori-checkbox">
+                            @foreach($brands as $dbrand)
                             <ul>
-                                <li><a href="#">Toyota (1)</a></li>
-                                <li><a href="#">Honda (1)</a></li>
-                                <li><a href="#">Ford (1)</a></li>
+                                @forelse($dbrand->vehicle->take(1) as $dvcount)
+                                <li><a href="{{route('vehicle.filter.brand',$dbrand->id)}}">{{$dbrand->brand}} ({{$dvcount->where('brand_id',$dbrand->id)->count()}})</a></li>
+                                
+                                @empty
+                                
+                                @endforelse
                             </ul>
+                            @endforeach
 `                        </div>
                     </div>
 

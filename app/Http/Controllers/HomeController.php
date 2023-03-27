@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\{Vehicle,Owner,Brand,VehicleImage,Booking};
 use App\Charts\BrandChart;
 use Carbon\Carbon;
+use DB;
 
 class HomeController extends Controller
 {
@@ -43,7 +44,13 @@ class HomeController extends Controller
         $total_bk_cnt = $booking_approved + $booking_done;
 
         $chart = new BrandChart;
-        $current_yr = Carbon::parse(Now())->format('Y');
+
+        if(request('filter')){
+            $current_yr = request('filter');
+        }else{
+            $current_yr = Carbon::parse(Now())->format('Y');
+        }
+
         $current_yr_jan = Carbon::parse($current_yr.'-01')->format('Y-m');
         $current_yr_feb = Carbon::parse($current_yr.'-02')->format('Y-m');
         $current_yr_mar = Carbon::parse($current_yr.'-03')->format('Y-m');
@@ -69,50 +76,22 @@ class HomeController extends Controller
         $oct_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_oct.'%'.'%')->count();
         $nov_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_nov.'%')->count();
         $dec_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_dev.'%')->count();
-        $chart->dataset('Completed', 'bar', [$jan_Completed, $feb_Completed, $mar_Completed, $apr_Completed, $may_Completed, $jun_Completed, $jul_Completed, $aug_Completed, $sept_Completed, $oct_Completed, $nov_Completed, $dec_Completed]);
+        $mar_Completed = Booking::join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
+        ->join('brands', 'brands.id', '=', 'vehicles.brand_id')
+        ->select(
+            DB::raw("brands.brand as brand_name"),
+            DB::raw("Count(vehicles.id) as count_v")
+        )
+        ->groupBy('brands.brand')
+        ->where('status','Completed')->where('bookings.updated_at','LIKE', '%'.$current_yr_mar.'%')->get();
 
-        $jan_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_jan.'%')->count();
-        $feb_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_feb.'%')->count();
-        $mar_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_mar.'%')->count();
-        $apr_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_apr.'%')->count();
-        $may_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_may.'%')->count();
-        $jun_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_jun.'%')->count();
-        $jul_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_jul.'%')->count();
-        $aug_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_aug.'%')->count();
-        $sept_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_sept.'%')->count();
-        $oct_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_oct.'%'.'%')->count();
-        $nov_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_nov.'%')->count();
-        $dec_Pending = Booking::with('vehicle')->where('status','Pending')->where('updated_at','LIKE', '%'.$current_yr_dev.'%')->count();
-        $chart->dataset('Pending', 'bar', [$jan_Pending, $feb_Pending, $mar_Pending, $apr_Pending, $may_Pending, $jun_Pending, $jul_Pending, $aug_Pending, $sept_Pending, $oct_Pending, $nov_Pending, $dec_Pending]);
-        
-        $jan_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_jan.'%')->count();
-        $feb_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_feb.'%')->count();
-        $mar_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_mar.'%')->count();
-        $apr_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_apr.'%')->count();
-        $may_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_may.'%')->count();
-        $jun_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_jun.'%')->count();
-        $jul_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_jul.'%')->count();
-        $aug_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_aug.'%')->count();
-        $sept_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_sept.'%')->count();
-        $oct_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_oct.'%'.'%')->count();
-        $nov_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_nov.'%')->count();
-        $dec_Approved = Booking::with('vehicle')->where('status','Approved')->where('updated_at','LIKE', '%'.$current_yr_dev.'%')->count();
-        $chart->dataset('Approved', 'bar', [$jan_Approved, $feb_Approved, $mar_Approved, $apr_Approved, $may_Approved, $jun_Approved, $jul_Approved, $aug_Approved, $sept_Approved, $oct_Approved, $nov_Approved, $dec_Approved]);
-        
-        $jan_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_jan.'%')->count();
-        $feb_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_feb.'%')->count();
-        $mar_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_mar.'%')->count();
-        $apr_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_apr.'%')->count();
-        $may_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_may.'%')->count();
-        $jun_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_jun.'%')->count();
-        $jul_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_jul.'%')->count();
-        $aug_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_aug.'%')->count();
-        $sept_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_sept.'%')->count();
-        $oct_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_oct.'%'.'%')->count();
-        $nov_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_nov.'%')->count();
-        $dec_Cancelled = Booking::with('vehicle')->where('status','Cancelled')->where('updated_at','LIKE', '%'.$current_yr_dev.'%')->count();
-        $chart->dataset('Cancelled', 'bar', [$jan_Cancelled, $feb_Cancelled, $mar_Cancelled, $apr_Cancelled, $may_Cancelled, $jun_Cancelled, $jul_Cancelled, $aug_Cancelled, $sept_Cancelled, $oct_Cancelled, $nov_Cancelled, $dec_Cancelled]);
-        
+        if($mar_Completed->isEmpty()){
+            $chart->dataset('No Dataset', 'bar', [$jan_Completed ?? '0', $feb_Completed ?? '0', $mar_dt->count_v ?? '0', $apr_Completed ?? '0', $may_Completed ?? '0', $jun_Completed ?? '0', $jul_Completed ?? '0', $aug_Completed ?? '0', $sept_Completed ?? '0', $oct_Completed ?? '0', $nov_Completed ?? '0', $dec_Completed ?? '0']);
+        }else{
+            foreach($mar_Completed as $mar_dt){
+                $chart->dataset($mar_dt->brand_name, 'bar', [$jan_Completed, $feb_Completed, $mar_dt->count_v, $apr_Completed, $may_Completed, $jun_Completed, $jul_Completed, $aug_Completed, $sept_Completed, $oct_Completed, $nov_Completed, $dec_Completed]);
+            }
+        }
         $chart->labels([
             "Jan",
             "Feb",

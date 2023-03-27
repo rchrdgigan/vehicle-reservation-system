@@ -105,6 +105,11 @@ class CustomerController extends Controller
         $booking = Booking::findOrFail( $request->id );
         $booking->status = 'Approved';
         $booking->update();
+
+        $vehicle = Vehicle::findOrFail($booking->vehicle_id);
+        $vehicle->is_approved = 'Not Available';
+        $vehicle->update();
+
         return redirect()->route('approved.customer')->with("success","Successfully approved customer!");
     }
     
@@ -139,6 +144,11 @@ class CustomerController extends Controller
         $booking = Booking::findOrFail( $request->id );
         $booking->status = 'Completed';
         $booking->update();
+
+        $vehicle = Vehicle::findOrFail($booking->vehicle_id);
+        $vehicle->is_approved = 'Approved';
+        $vehicle->update();
+
         return redirect()->route('done.customer')->with("success","Successfully done the customer transaction!");
     }
 

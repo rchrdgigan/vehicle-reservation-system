@@ -20,6 +20,6 @@ class IsClient
             return $next($request);
         }
    
-        return redirect('admin')->with('error',"You don't have admin access.");
+        return redirect('admin')->with('error',"You don't have client access.");
     }
 }

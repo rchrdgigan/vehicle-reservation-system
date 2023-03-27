@@ -1,5 +1,8 @@
 @extends('layouts.dashboard')
 
+@push('links')
+<link rel="stylesheet" href="{{asset('vendor/plugins/select2/css/select2.min.css')}}">
+@endpush
 @section('content')
 <div class="content">
     <div class="row">
@@ -58,22 +61,28 @@
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Vehicle Booking Report</h5>
                     <div class="graph-sets">
-                        <div class="dropdown">
-                            <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                2022 <img src="{{asset('vendor/img/icons/dropdown.svg')}}" alt="img" class="ms-2">
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">2022</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">2021</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" class="dropdown-item">2020</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <form action="" method="get">
+                            <div class="row">
+                                <button type="submit" class="btn btn-sm btn-primary">
+                                    Filter
+                                </button>
+                                <select class="form-control form-small select" name="filter">
+                                    @if(isset($_GET['filter']))
+                                    <option {{($_GET['filter']=='2023')? 'selected':''}}>2023</option>
+                                    <option {{($_GET['filter']=='2022')? 'selected':''}}>2022</option>
+                                    <option {{($_GET['filter']=='2021')? 'selected':''}}>2021</option>
+                                    <option {{($_GET['filter']=='2020')? 'selected':''}}>2020</option>
+                                    <option {{($_GET['filter']=='2019')? 'selected':''}}>2019</option>
+                                    @else
+                                    <option>2023</option>
+                                    <option>2022</option>
+                                    <option>2021</option>
+                                    <option>2020</option>
+                                    <option>2019</option>
+                                    @endif
+                                </select>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="card-body">
@@ -181,6 +190,10 @@
 @endsection
 
 @push('scripts')
+
+<script src="{{asset('vendor/plugins/select2/js/select2.min.js')}}"></script>
+<script src="{{asset('vendor/plugins/select2/js/custom-select.js')}}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/frappe-charts@1.1.0/dist/frappe-charts.min.iife.js"></script>
 {!! $chart->script() !!}
 @endpush

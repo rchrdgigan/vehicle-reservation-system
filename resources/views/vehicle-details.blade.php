@@ -35,7 +35,7 @@ Details of Vehicle
             <div class="col-lg-7 col-md-6">
                 <div class="product-details-view-content">
                     <div class="product-info">
-                        <h2><a href="{{route('owner.car')}}">{{$owner_name ?? 'N/A'}}</a></h2>
+                        <h2><a href="{{route('owner.car', $owner->id)}}">{{$owner_name ?? 'N/A'}}</a></h2>
                         <span class="product-details-ref">Vehicle Brand:</span> {{$brands->brand ?? 'N/A'}}<br>
                         <span class="product-details-ref">Vehicle Model:</span> {{$brands->brand ?? 'N/A'}} - {{$vehicle->model_year}}<br>
                         <span class="product-details-ref">Seater Capacity:</span> {{$vehicle->seating_cap}}<br>
@@ -51,8 +51,9 @@ Details of Vehicle
                             {{$vehicle->description}}
                         </div>
                         <div>
-                            <span class="bg-success text-white rounded p-1">{{($vehicle->is_approved == 'Approved')? 'Available' : ''}}</span>
+                            <span class="{{($vehicle->is_approved == 'Approved')? 'bg-success' : 'bg-danger'}} text-white rounded p-1">{{($vehicle->is_approved == 'Approved')? 'Available' : 'Not Available'}}</span>
                         </div>
+                        @if($vehicle->is_approved == 'Approved')
                         <div class="single-add-to-cart">
                             <div class="cart-quantity">
                                 <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
@@ -63,6 +64,9 @@ Details of Vehicle
                                 <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.booking',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Book Now</a>
                             </form>
                         </div>
+                        @else
+
+                        @endif
                     </div>
                 </div>
             </div> 
@@ -105,7 +109,7 @@ Details of Vehicle
                                         </div>
                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
                                             @endforeach
                                         @endforeach
                                     </div>

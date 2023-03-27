@@ -99,7 +99,7 @@ Main Page
                                         </div>
                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
                                             @endforeach
                                         @endforeach
                                     </div>

@@ -27,7 +27,7 @@ List of Vehicle
                         <div id="grid-view" class="tab-pane fade active show" role="tabpanel">
                             <div class="product-area shop-product-area">
                                 <div class="row">
-                                    @foreach($vehicles->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
+                                    @forelse($vehicles->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
                                         <div class="col-lg-4 col-md-4 col-sm-4 mt-40">
                                             <div class="single-product-wrap">
                                                 <div class="product-image static-image">
@@ -51,7 +51,7 @@ List of Vehicle
                                                         </div>
                                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                                            <h4><a class="product_name" href="{{route('owner.car')}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
                                                             @endforeach
                                                         @endforeach
                                                     </div>
@@ -72,7 +72,13 @@ List of Vehicle
                                                 </div>
                                             </div>
                                         </div>
-                                    @endforeach
+                                        @empty
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <img src="{{asset('/images/na/ndf.png')}}" class="rounded" width="100%">
+                                            </div>
+                                        </div>
+                                    @endforelse
                                 </div>
                             </div>
                         </div>

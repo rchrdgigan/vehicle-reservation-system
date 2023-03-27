@@ -34,7 +34,7 @@
                                     <i class="fa fa-book"></i> {{ __('My Booking') }}
                                 </a>
                                 @if(auth()->user()->owner)
-                                <a class="dropdown-item btn-secondary" href="#">
+                                <a class="dropdown-item btn-secondary" href="{{route('vehicle.index')}}">
                                     <i class="fa fa-car"></i> {{ __('My Car For Rent') }}
                                 </a>
                                 @endif
@@ -84,8 +84,8 @@
                     </div>
                 </div>
                 <div class="col-lg-9 pl-0 ml-sm-15 ml-xs-15">
-                    <form action="#" class="hm-searchbox">
-                        <input type="text" placeholder="Enter your search key ...">
+                    <form action="{{route('vehicle.search')}}" method="GET" class="hm-searchbox">
+                        <input type="text" name="search" placeholder="Enter your search key ...">
                         <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
                     </form>
                     <div class="header-middle-right">

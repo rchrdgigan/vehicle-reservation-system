@@ -15,24 +15,26 @@ use Carbon\Carbon;
 class CartController extends Controller
 {
     public function addCart($vehicle_id,$owner_id){
-        $owner_vehicle = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id ?? '')->where('vehicle_id', $vehicle_id)->get();
-        if($owner_vehicle->isEmpty()){
-            $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->get();
-            if($book->isEmpty()){
-                $book = Booking::create([
-                    'user_id'=>auth()->user()->id,
-                    'vehicle_id'=>$vehicle_id,
-                    'owner_id'=>$owner_id,
-                    'status'=>'Cart',
-                ]);
-                return redirect()->route('cart.list')->with("success","Successfully Added to Cart!");
-            }else{
-                return redirect()->route('cart.list')->with("error","Car Already Exist to Cart!");
-            }
+        if(auth()->user()->is_admin == '1'){
         }else{
-            return redirect()->back()->with("error","You cannot add to cart your owned vehicle!");
+            $owner_vehicle = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id ?? '')->where('vehicle_id', $vehicle_id)->get();
+            if($owner_vehicle->isEmpty()){
+                $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Cart')->get();
+                if($book->isEmpty()){
+                    $book = Booking::create([
+                        'user_id'=>auth()->user()->id,
+                        'vehicle_id'=>$vehicle_id,
+                        'owner_id'=>$owner_id,
+                        'status'=>'Cart',
+                    ]);
+                    return redirect()->route('cart.list')->with("success","Successfully Added to Cart!");
+                }else{
+                    return redirect()->route('cart.list')->with("error","Car Already Exist to Cart!");
+                }
+            }else{
+                return redirect()->back()->with("error","You cannot add to cart your owned vehicle!");
+            }
         }
-        
     }
 
     public function listCart()
