@@ -13,6 +13,5 @@ class VehicleImage extends Model
         'vehicle_id',
         'vehicle_img',
     ];
-
     
 }

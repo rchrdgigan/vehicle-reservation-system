@@ -64,32 +64,65 @@ class HomeController extends Controller
         $current_yr_nov = Carbon::parse($current_yr.'-11')->format('Y-m');
         $current_yr_dev = Carbon::parse($current_yr.'-12')->format('Y-m');
 
-        $jan_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_jan.'%')->count();
-        $feb_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_feb.'%')->count();
-        $mar_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_mar.'%')->count();
-        $apr_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_apr.'%')->count();
-        $may_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_may.'%')->count();
-        $jun_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_jun.'%')->count();
-        $jul_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_jul.'%')->count();
-        $aug_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_aug.'%')->count();
-        $sept_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_sept.'%')->count();
-        $oct_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_oct.'%'.'%')->count();
-        $nov_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_nov.'%')->count();
-        $dec_Completed = Booking::with('vehicle')->where('status','Completed')->where('updated_at','LIKE', '%'.$current_yr_dev.'%')->count();
-        $mar_Completed = Booking::join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
+        $completed = Booking::join('vehicles', 'vehicles.id', '=', 'bookings.vehicle_id')
         ->join('brands', 'brands.id', '=', 'vehicles.brand_id')
         ->select(
             DB::raw("brands.brand as brand_name"),
-            DB::raw("Count(vehicles.id) as count_v")
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_jan%' THEN 1
+            ELSE 0 END) as jan_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_feb%' THEN 1
+            ELSE 0 END) feb_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_mar%' THEN 1
+            ELSE 0 END) mar_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_apr%' THEN 1
+            ELSE 0 END) apr_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_may%' THEN 1
+            ELSE 0 END) may_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_jun%' THEN 1
+            ELSE 0 END) jun_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_jul%' THEN 1
+            ELSE 0 END) jul_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_aug%' THEN 1
+            ELSE 0 END) aug_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_sept%' THEN 1
+            ELSE 0 END) sept_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_oct%' THEN 1
+            ELSE 0 END) oct_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_nov%' THEN 1
+            ELSE 0 END) nov_count_v"),
+
+            DB::raw("SUM(CASE 
+            WHEN bookings.updated_at LIKE '$current_yr_dev%' THEN 1
+            ELSE 0 END) dev_count_v")
         )
         ->groupBy('brands.brand')
-        ->where('status','Completed')->where('bookings.updated_at','LIKE', '%'.$current_yr_mar.'%')->get();
-
-        if($mar_Completed->isEmpty()){
-            $chart->dataset('No Dataset', 'bar', [$jan_Completed ?? '0', $feb_Completed ?? '0', $mar_dt->count_v ?? '0', $apr_Completed ?? '0', $may_Completed ?? '0', $jun_Completed ?? '0', $jul_Completed ?? '0', $aug_Completed ?? '0', $sept_Completed ?? '0', $oct_Completed ?? '0', $nov_Completed ?? '0', $dec_Completed ?? '0']);
+        ->where('status','Completed')->get();
+        if($completed->isEmpty()){
+            $chart->dataset('No Report to this year '.$current_yr, 'bar', ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']);
         }else{
-            foreach($mar_Completed as $mar_dt){
-                $chart->dataset($mar_dt->brand_name, 'bar', [$jan_Completed, $feb_Completed, $mar_dt->count_v, $apr_Completed, $may_Completed, $jun_Completed, $jul_Completed, $aug_Completed, $sept_Completed, $oct_Completed, $nov_Completed, $dec_Completed]);
+            foreach($completed as $dt){
+                $chart->dataset($dt->brand_name, 'bar', [$dt->jan_count_v, $dt->feb_count_v, $dt->mar_count_v, $dt->apr_count_v, $dt->may_count_v, $dt->jun_count_v, $dt->jul_count_v, $dt->aug_count_v, $dt->sept_count_v, $dt->oct_count_v, $dt->nov_count_v, $dt->dev_count_v]);
             }
         }
         $chart->labels([
