@@ -57,7 +57,7 @@
                             <td>{{$book->brand_name}}</td>
                             <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
                             <td>{{$book->seating_cap}}</td>
-                            <td>{{$book->name}} - {{$book->contact}}</td>
+                            <td>{{$book->name}} - {{$book->cpnumber}}</td>
                             <td><a class="bg-danger text-white rounded">Pending</a></td>
                             <td>
                                 <button type="button" id="{{$book->id}}" class="btn btn-sm btn-success m-2" data-bs-toggle="modal" data-bs-target="#approvedModal"><i class="fa fa-check"></i> Approved</a>
@@ -76,7 +76,7 @@
 <div class="modal fade" id="cancelModal">
   <div class="modal-dialog">
     <div class="modal-content">
-        <form action="{{route('cancel.booking')}}" method="post" id="cancel_frm">
+        <form action="{{route('cancel.customer')}}" method="post" id="cancel_frm">
             @csrf
             @method('PUT')
             <div class="modal-header">
@@ -127,6 +127,14 @@ $('#approvedModal').on('show.bs.modal', function (e) {
     var opener=e.relatedTarget;
     var id=$(opener).attr('id');
     $('#app_frm').find('[name="id"]').val(id);
+});
+</script>
+
+<script>
+$('#cancelModal').on('show.bs.modal', function (e) {
+    var opener=e.relatedTarget;
+    var id=$(opener).attr('id');
+    $('#cancel_frm').find('[name="id"]').val(id);
 });
 </script>
 @endpush
