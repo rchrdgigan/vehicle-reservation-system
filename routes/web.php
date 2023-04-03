@@ -16,6 +16,7 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/vehicle/list/all', [PageController::class, 'vehicleList'])->name('vehicle.list');
 Route::get('/vehicle/list/search', [PageController::class, 'vehicleList'])->name('vehicle.search');
 Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilteredBrand'])->name('vehicle.filter.brand');
@@ -79,7 +80,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user/cart/list', [CartController::class, 'listCart'])->name('cart.list');
-    Route::post('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
+    Route::get('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
     Route::delete('/user/cart/remove', [CartController::class, 'removeCart'])->name('remove.cart');
     Route::put('/user/update', [ProfileController::class, 'updateProfile'])->name('update.user');
     Route::put('/user/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');

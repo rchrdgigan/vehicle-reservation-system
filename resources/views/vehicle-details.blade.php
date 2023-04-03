@@ -56,11 +56,7 @@ Details of Vehicle
                         @if($vehicle->is_approved == 'Approved')
                         <div class="single-add-to-cart">
                             <div class="cart-quantity">
-                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                 <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.booking',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Book Now</a>
                             </form>
                         </div>
@@ -117,11 +113,7 @@ Details of Vehicle
                                         <ul class="add-actions-link">
                                             
                                             <li class="add-cart active">
-                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
+                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                             </li>
 
                                             <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>

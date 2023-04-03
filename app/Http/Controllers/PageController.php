@@ -17,6 +17,11 @@ class PageController extends Controller
         return view('welcome',compact('vehicles','brands','owners','vehicle_img','count_cart'));
     }
 
+    public function contact(){
+        $count_cart = Booking::where('status','Cart')->count();
+        return view('contact-us',compact('count_cart'));
+    }
+
     public function vehicleDetail($id){
         $vehicle = Vehicle::with('assign_vehicle_owner')->with('assign_vehicle_type')->findOrFail($id);
         foreach($vehicle->assign_vehicle_owner->take(1) as $assign_owner){
