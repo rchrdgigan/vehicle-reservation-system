@@ -79,6 +79,26 @@ class BookingController extends Controller
         }
     }
 
+    public function addBookingModal(Request $request){
+        $owner_vehicle = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id ?? '')->where('vehicle_id', $request->vehicle_id)->get();
+        if($owner_vehicle->isEmpty()){
+            $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$request->vehicle_id)->where('owner_id',$request->owner_id)->where('status','Pending')->get();
+            if($book->isEmpty()){
+                Booking::create([
+                    'user_id'=>auth()->user()->id,
+                    'vehicle_id'=>$request->vehicle_id,
+                    'owner_id'=>$request->owner_id,
+                    'status'=>'Pending',
+                ]);
+                return redirect()->route('pending.booking')->with("success","Successfully Added to booking pending list!");
+            }else{
+                return redirect()->route('pending.booking')->with("error","Vehicle already exist in booking pending list! Waiting for approval of owner.");
+            }
+        }else{
+            return redirect()->back()->with("error","You cannot booking your owned vehicle!");
+        }
+    }
+
     public function cancelledBookingList(){
         $books = Booking::get();
         $books->map(function($item){

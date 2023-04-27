@@ -57,7 +57,7 @@ Details of Vehicle
                         <div class="single-add-to-cart">
                             <div class="cart-quantity">
                                 <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
-                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.booking',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Book Now</a>
+                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" vehicle_id="{{$vehicle->id}}" owner_id="{{$owner->id}}" data-toggle="modal" data-target="#booknow">Book Now</a>
                             </form>
                         </div>
                         @else
@@ -68,6 +68,28 @@ Details of Vehicle
             </div> 
         </div>
 
+    </div>
+</div>
+
+<div class="modal fade" id="booknow">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{route('add.booking.modal')}}" method="post" id="book_frm">
+                @csrf
+                <input type="hidden" name="vehicle_id">
+                <input type="hidden" name="owner_id">
+                <!-- Modal body -->
+                <div class="modal-body text-center">
+                    <i class="fa fa-question-circle fa-5x text-info"></i><br>
+                    Are you sure you want to Book this vehicle?
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-info">Yes</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -113,14 +135,9 @@ Details of Vehicle
                                         <ul class="add-actions-link">
                                             
                                             <li class="add-cart active">
-                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
+                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                             </li>
-
-                                            <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
+                                            <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -134,3 +151,15 @@ Details of Vehicle
     </div>
 </section>
 @endsection
+
+@push('scripts')
+<script>
+    $('#booknow').on('show.bs.modal', function (e) {
+        var opener=e.relatedTarget;
+        var vehicle_id=$(opener).attr('vehicle_id');
+        var owner_id=$(opener).attr('owner_id');
+        $('#book_frm').find('[name="vehicle_id"]').val(vehicle_id);
+        $('#book_frm').find('[name="owner_id"]').val(owner_id);
+    });
+</script>
+@endpush
