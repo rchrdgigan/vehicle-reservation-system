@@ -110,7 +110,11 @@ class BookingController extends Controller
         $booking = Booking::findOrFail( $request->id );
         $booking->status = 'Cancelled';
         $booking->update();
-        return redirect()->route('cancel.booking')->with("success","Successfully cancelled booking!");
+        if(request()->routeIs('owner.index')){
+            return redirect()->route('cancel.customer.list')->with("success","Successfully cancelled booking!");
+        }else{
+            return redirect()->route('cancel.booking')->with("success","Successfully cancelled booking!");
+        }
     }
 
     public function historyBookingList(){

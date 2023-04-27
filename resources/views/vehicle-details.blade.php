@@ -117,7 +117,11 @@ Details of Vehicle
                                                 document.getElementById('add-cart').submit();">Add to cart</a>
                                                 <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
                                                     @csrf
-                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
+                                                </form>
+                                            </li>
+
+                                            <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

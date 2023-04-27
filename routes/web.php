@@ -17,6 +17,7 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/vehicle/list/all', [PageController::class, 'vehicleList'])->name('vehicle.list');
 
 Route::get('/about', [PageController::class, 'about'])->name('about');

@@ -57,11 +57,9 @@ List of Vehicle
                                                     </div>
                                                     <div class="add-actions">
                                                         <ul class="add-actions-link">
-                                                           
                                                             <li class="add-cart active">
                                                                 <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                                             </li>
-
                                                             <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                                         </ul>
                                                     </div>
