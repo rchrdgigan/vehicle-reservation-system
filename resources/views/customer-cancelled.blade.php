@@ -56,7 +56,7 @@
                             <td>{{$book->brand_name}}</td>
                             <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
                             <td>{{$book->seating_cap}}</td>
-                            <td>{{$book->name}} - {{$book->contact}}</td>
+                            <td>{{$book->name}} - {{$book->cpnumber}}</td>
                             <td><a class="bg-secondary text-white rounded">Cancelled</a></td>
                         </tr>
                         @endforeach

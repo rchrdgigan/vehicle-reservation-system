@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
     <!-- Scripts -->
     <script src="{{asset('js/vendor/modernizr-2.8.3.min.js')}}"></script>
+    @stack('links')
 </head>
 <body>
     <div class="body-wrapper">

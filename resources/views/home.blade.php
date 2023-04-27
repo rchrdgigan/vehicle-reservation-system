@@ -31,7 +31,7 @@
                 @csrf
                 @method('PUT')
                 <div class="profile-set">
-                    <div class="profile-head" style="background: url({{asset('images/start-rental-business-bg/vehicle.jpg')}}) no-repeat center center fixed; background-size: cover;">
+                    <div class="profile-head" style="background: url('images/start-rental-business-bg/vehicle.jpg') no-repeat center center fixed; background-size: cover;">
                     </div>
                     <div class="profile-top mt-2">
                         <div class="profile-content">

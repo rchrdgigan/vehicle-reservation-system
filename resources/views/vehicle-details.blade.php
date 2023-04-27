@@ -56,11 +56,7 @@ Details of Vehicle
                         @if($vehicle->is_approved == 'Approved')
                         <div class="single-add-to-cart">
                             <div class="cart-quantity">
-                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
+                                <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                 <a type="button" class="add-to-cart col-sm-12 col-lg-4 m-1 text-center" href="{{route('add.booking',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Book Now</a>
                             </form>
                         </div>
@@ -109,7 +105,7 @@ Details of Vehicle
                                         </div>
                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname[0] . ". " . $owner->owner_lname[0]}}.</a></h4>
                                             @endforeach
                                         @endforeach
                                     </div>
@@ -121,11 +117,7 @@ Details of Vehicle
                                                 document.getElementById('add-cart').submit();">Add to cart</a>
                                                 <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
                                                     @csrf
-                                                </form>
-                                            </li>
-
-                                            <li><a href="" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
-                                        </ul>
+                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                     </div>
                                 </div>
                             </div>

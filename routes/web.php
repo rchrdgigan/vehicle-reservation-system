@@ -11,12 +11,23 @@ use App\Http\Controllers\{
     ProfileController,
     OwnerController,
     BookingController,
-    CustomerController
+    CustomerController,
+    ContactController,
 };
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
 Route::get('/vehicle/list/all', [PageController::class, 'vehicleList'])->name('vehicle.list');
+
+Route::get('/about', [PageController::class, 'about'])->name('about');
+
+  Route::controller(ContactController::class)
+            ->as('contact.')
+            ->prefix('contact')
+            ->group(function(){
+                Route::get('/', 'index')->name('index');
+                Route::post('/store', 'store')->name('store');
+            });
 Route::get('/vehicle/list/search', [PageController::class, 'vehicleList'])->name('vehicle.search');
 Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilteredBrand'])->name('vehicle.filter.brand');
 Route::get('/vehicle/list/type/{type}', [PageController::class, 'vehicleFilteredType'])->name('vehicle.filter.type');
@@ -74,12 +85,19 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
             Route::put('/update/{id}', 'update')->name('update');
             Route::delete('/destroy', 'destroy')->name('destroy');
         });
+        Route::controller(ContactController::class)
+            ->as('contact.')
+            ->prefix('contact')
+            ->group(function(){
+                Route::get('/list', 'list')->name('list');
+                Route::delete('/destroy', 'destroy')->name('destroy');
+            });
     });
 });
 Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user/cart/list', [CartController::class, 'listCart'])->name('cart.list');
-    Route::post('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
+    Route::get('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
     Route::delete('/user/cart/remove', [CartController::class, 'removeCart'])->name('remove.cart');
     Route::put('/user/update', [ProfileController::class, 'updateProfile'])->name('update.user');
     Route::put('/user/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');

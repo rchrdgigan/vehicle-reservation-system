@@ -117,8 +117,8 @@
                         <nav>
                             <ul>
                                 <li><a href="{{url('/')}}">Home</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="{{route('about')}}">About Us</a></li>
+                                <li><a href="{{route('contact.index')}}">Contact Us</a></li>
                                 <li><a href="{{route('vehicle.list')}}">Vehicle List</a></li>
                             </ul>
                         </nav>

@@ -34,4 +34,9 @@ class Vehicle extends Model
     {
         return $this->hasMany(VehicleImage::class);
     }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

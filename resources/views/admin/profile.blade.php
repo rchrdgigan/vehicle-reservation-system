@@ -5,7 +5,7 @@
     <div class="page-header">
         <div class="page-title">
             <h4>Profile</h4>
-            <h6>User Profile</h6>
+            <h6>Admin Profile</h6>
         </div>
     </div>
 

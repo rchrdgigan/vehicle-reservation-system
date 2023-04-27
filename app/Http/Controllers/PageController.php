@@ -13,15 +13,19 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('welcome',compact('vehicles','brands','owners','vehicle_img','count_cart'));
+    }
+
+    public function about(){
+        return view('about',['count_cart'=>Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count(),]);
     }
 
     public function vehicleDetail($id){
         $vehicle = Vehicle::with('assign_vehicle_owner')->with('assign_vehicle_type')->findOrFail($id);
         foreach($vehicle->assign_vehicle_owner->take(1) as $assign_owner){
             $owner = Owner::findOrFail($assign_owner->owner_id);
-            $owner_name = $owner->owner_fname . " " . $owner->owner_lname[0];
+            $owner_name = $owner->owner_fname[0] . ". " . $owner->owner_lname[0].'.';
         }
         foreach($vehicle->assign_vehicle_type as $assign_type){
             $type = Type::findOrFail($assign_type->type_id);
@@ -31,7 +35,7 @@ class PageController extends Controller
         $vehicle_img = VehicleImage::get();
         $owners = Owner::get();
         $o_t_brand = Vehicle::where('brand_id',$vehicle->brand_id)->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners','owner','count_cart'));
     }
 
@@ -39,9 +43,32 @@ class PageController extends Controller
         if(request('search')){
             $search = request('search');
             $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))
-                ->where('vehicle_name','LIKE', '%'.$search.'%')
-                ->orWhere('model_year','LIKE', '%'.$search.'%')
-                ->orWhere('seating_cap','LIKE', '%'.$search.'%')->get();
+            ->where('vehicle_name','LIKE', '%'.$search.'%')
+            ->orWhere('model_year','LIKE', '%'.$search.'%')
+            ->orWhere('seating_cap','LIKE', '%'.$search.'%')
+            ->get(); 
+
+            if($vehicles->isEmpty()){
+                $type = Type::query()->when(request('search'), function($query){
+                    $search = request('search');
+                    $query->where('type', '=', $search);
+                })->first();
+                if($type){
+                    $searchType = $type->id;
+                    $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->whereHas('assign_vehicle_type', function ($query) use ($searchType){
+                        $query->where('type_id', 'like', '%'.$searchType.'%');
+                    })
+                    ->with(['assign_vehicle_type' => function($query) use ($searchType){
+                        $query->where('type_id', 'like', '%'.$searchType.'%');
+                    }])->get();
+                }
+                $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->whereHas('brand', function ($query) use ($search){
+                    $query->where('brand', 'like', '%'.$search.'%');
+                })
+                ->with(['brand' => function($query) use ($search){
+                    $query->where('brand', 'like', '%'.$search.'%');
+                }])->get();
+            }
         }else{
             $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
         }
@@ -50,7 +77,7 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
@@ -61,7 +88,7 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
@@ -94,7 +121,7 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('vehicle-list',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 
@@ -127,7 +154,7 @@ class PageController extends Controller
         $owners = Owner::get();
         $vehicle_img = VehicleImage::get();
         $vehicle_type = AssignVehicleType::with('vehicle')->get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('owner-of-car',compact('vehicles','brands','owners','vehicle_img','vehicle_type','types','count_cart'));
     }
 

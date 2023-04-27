@@ -31,11 +31,11 @@ List of Vehicle
                                         <div class="col-lg-4 col-md-4 col-sm-4 mt-40">
                                             <div class="single-product-wrap">
                                                 <div class="product-image static-image">
-                                                    <a href="{{route('vehicle.details', $vehicle->id)}}">
-                                                        @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                                    @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
+                                                    <a href="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}">
                                                         <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="VRMS Car's">
-                                                        @endforeach
                                                     </a>
+                                                    @endforeach
                                                 </div>
                                                 <div class="product_desc">
                                                     <div class="product_desc_info">
@@ -51,7 +51,7 @@ List of Vehicle
                                                         </div>
                                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname[0] . ". " . $owner->owner_lname[0]}}.</a></h4>
                                                             @endforeach
                                                         @endforeach
                                                     </div>
@@ -59,11 +59,7 @@ List of Vehicle
                                                         <ul class="add-actions-link">
                                                            
                                                             <li class="add-cart active">
-                                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                                                    @csrf
-                                                                </form>
+                                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                                             </li>
 
                                                             <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>

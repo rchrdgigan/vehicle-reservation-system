@@ -58,11 +58,11 @@ class CartController extends Controller
             $brand = Brand::findOrFail($vehicle->brand_id);
             $item->brand_name = $brand->brand;
             $owner = Owner::findOrFail($item->owner_id);
-            $item->owner_name = $owner->owner_fname . " " . $owner->owner_lname[0];
+            $item->owner_name = $owner->owner_fname[0] . ". " . $owner->owner_lname[0];
             $item->contact = $owner->contact;
         });
         $types = Type::get();
-        $count_cart = Booking::where('status','Cart')->count();
+        $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
         return view('cart',compact('carts','types','count_cart'));
     }
 

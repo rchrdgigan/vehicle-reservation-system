@@ -99,18 +99,14 @@ Main Page
                                         </div>
                                         @foreach($vehicle->assign_vehicle_owner->take(1) as $owner)
                                             @foreach($owners->where('id', $owner->owner_id)->take(1) as $owner)
-                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname . " " . $owner->owner_lname[0]}}.</a></h4>
+                                            <h4><a class="product_name" href="{{route('owner.car', $owner->id)}}">{{ $owner->owner_fname[0] . ". " . $owner->owner_lname[0]}}.</a></h4>
                                             @endforeach
                                         @endforeach
                                     </div>
                                     <div class="add-actions">
                                         <ul class="add-actions-link">
                                             <li class="add-cart active">
-                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" onclick="event.preventDefault();
-                                                document.getElementById('add-cart').submit();">Add to cart</a>
-                                                <form id="add-cart" action="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
+                                                <a href="{{route('add.cart',['vehicle_id' => $vehicle->id , 'owner_id' => $owner->id])}}">Add to cart</a>
                                             </li>
                                             <li><a href="{{route('vehicle.details', $vehicle->id)}}" class="quick-view-btn"><i class="fa fa-eye"></i></a></li>
                                         </ul>
