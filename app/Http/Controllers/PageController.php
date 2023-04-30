@@ -56,7 +56,7 @@ class PageController extends Controller
             if($vehicles->isEmpty()){
                 $type = Type::query()->when(request('search'), function($query){
                     $search = request('search');
-                    $query->where('type', '=', $search);
+                    $query->where('type', 'LIKE', $search.'%');
                 })->first();
                 if($type){
                     $searchType = $type->id;
@@ -66,13 +66,14 @@ class PageController extends Controller
                     ->with(['assign_vehicle_type' => function($query) use ($searchType){
                         $query->where('type_id', 'like', '%'.$searchType.'%');
                     }])->get();
+                }else{
+                    $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->whereHas('brand', function ($query) use ($search){
+                        $query->where('brand', 'like', '%'.$search.'%');
+                    })
+                    ->with(['brand' => function($query) use ($search){
+                        $query->where('brand', 'like', '%'.$search.'%');
+                    }])->get();
                 }
-                $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->whereHas('brand', function ($query) use ($search){
-                    $query->where('brand', 'like', '%'.$search.'%');
-                })
-                ->with(['brand' => function($query) use ($search){
-                    $query->where('brand', 'like', '%'.$search.'%');
-                }])->get();
             }
         }else{
             $vehicles = Vehicle::where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();

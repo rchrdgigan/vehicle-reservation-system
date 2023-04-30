@@ -34,9 +34,12 @@ Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilter
 Route::get('/vehicle/list/type/{type}', [PageController::class, 'vehicleFilteredType'])->name('vehicle.filter.type');
 Route::get('/vehicle/details/{id}', [PageController::class, 'vehicleDetail'])->name('vehicle.details');
 Route::get('/owner/vehicle-list/{id}', [PageController::class, 'ownerCars'])->name('owner.car');
+
+
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::group(['prefix'=>'admin','as'=>'admin.'], function(){
         Route::get('/', [HomeController::class, 'adminHome'])->name('index');
+        Route::get('/demand-forecast', [HomeController::class, 'adminForecast'])->name('demand.forecast');
         Route::get('/profile', [ProfileController::class, 'showProfile'])->name('show.profile');
         Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('update.profile');
         Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('update.password');
@@ -87,12 +90,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
             Route::delete('/destroy', 'destroy')->name('destroy');
         });
         Route::controller(ContactController::class)
-            ->as('contact.')
-            ->prefix('contact')
-            ->group(function(){
-                Route::get('/list', 'list')->name('list');
-                Route::delete('/destroy', 'destroy')->name('destroy');
-            });
+        ->as('contact.')
+        ->prefix('contact')
+        ->group(function(){
+            Route::get('/list', 'list')->name('list');
+            Route::delete('/destroy', 'destroy')->name('destroy');
+        });
     });
 });
 Route::middleware(['auth', 'is_client'])->group(function () {
@@ -129,4 +132,5 @@ Route::middleware(['auth', 'is_client'])->group(function () {
     Route::get('/user/customer/done', [CustomerController::class, 'doneCustomerList'])->name('done.customer.list');
     Route::put('/user/customer/done', [CustomerController::class, 'doneCustomer'])->name('done.customer');
 });
-Auth::routes();
+
+Auth::routes(['verify' => true]);

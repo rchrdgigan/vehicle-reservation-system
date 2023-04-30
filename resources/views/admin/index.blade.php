@@ -59,12 +59,13 @@
         <div class="col-lg-7 col-sm-12 col-12 d-flex">
             <div class="card flex-fill">
                 <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Vehicle Booking Report</h5>
+                    <h5 class="card-title mb-0">Vehicle Booking Report <span><a href="{{route('admin.demand.forecast')}}" class="btn btn-primary pl-2"><i data-feather="bar-chart-2"></i> Demand Forecasting</a></span></h5>
+                    
                     <div class="graph-sets">
                         <form action="" method="get">
                             <div class="row">
                                 <button type="submit" class="btn btn-sm btn-primary">
-                                    Filter
+                                <i data-feather="filter"></i> Filter
                                 </button>
                                 <select class="form-control form-small select" name="filter">
                                     @if(isset($_GET['filter']))

@@ -30,7 +30,7 @@
                 @endif
                 <span class="status online"></span>
             </span>
-            <h6 class="p-2"> Welcome, {{auth()->user()->fname}}</h6>
+            <small class="p-2"> Admin {{auth()->user()->fname}}</small>
 
             </a>
             <div class="dropdown-menu menu-drop-user">
