@@ -14,11 +14,6 @@ use Carbon\Carbon;
 
 class CartController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['verified']);
-    }
-    
     public function addCart($vehicle_id,$owner_id){
         if(auth()->user()->is_admin == '1'){
         }else{

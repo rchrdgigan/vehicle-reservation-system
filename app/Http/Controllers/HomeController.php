@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth']);
     }
 
     /**
@@ -170,7 +170,6 @@ class HomeController extends Controller
             $rentcount_oct[$i] = Booking::where('updated_at', '%'.$current_yr_oct.'%')->where('status','Completed')->count();
             $rentcount_nov[$i] = Booking::where('updated_at', '%'.$current_yr_nov.'%')->where('status','Completed')->count();
             $rentcount_dev[$i] = Booking::where('updated_at', '%'.$current_yr_dev.'%')->where('status','Completed')->count();
-            $arry = [$rentcount_jan, $rentcount_feb, $rentcount_mar, $rentcount_apr, $rentcount_may, $rentcount_jun, $rentcount_jul, $rentcount_aug, $rentcount_sept, $rentcount_oct, $rentcount_nov, $rentcount_dev];
         }
         $forecast_jan = array_sum($rentcount_jan) / 5; 
         $forecast_feb = array_sum($rentcount_feb) / 5;

@@ -16,7 +16,7 @@
                             </li>
                             <li>
                                 <span>Our Cellphone Number: </span>
-                                <a href="#">(+63) 912 345 6789</a>
+                                <a href="Tel://+639123456789">(+63) 912 345 6789</a>
                             </li>
                             <li>
                                 <span>Email: </span>
@@ -34,12 +34,10 @@
                 <div class="col-lg-12">
                     <div class="footer-links">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                            <li><a href="#">Rental Transaction</a></li>
-                            <li><a href="#">Cart</a></li>
-                            <li><a href="#">Vehicle List</a></li>
+                            <li><a href="{{route('about')}}">About Us</a></li>
+                            <li><a href="{{route('contact.index')}}">Contact Us</a></li>
+                            <li><a href="{{route('cart.list')}}">Cart</a></li>
+                            <li><a href="{{route('vehicle.list')}}">Vehicle List</a></li>
                         </ul>
                     </div>
                     <div class="copyright text-center">

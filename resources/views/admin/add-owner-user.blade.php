@@ -31,7 +31,7 @@
                     <div class="col-12 text-center">
                         <div class="form-group">
                             <h6>Users Name</h6>
-                            <span>{{$users->name}}</span>
+                            <span>{{$users->fname}} {{$users->lname}}</span>
                         </div>
                         <div class="form-group">
                             <h6>Users Email</h6>

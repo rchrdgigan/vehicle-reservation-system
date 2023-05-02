@@ -49,7 +49,7 @@
                             @foreach($users->where('is_admin', false) as $user)
                             <tr>
                                 <td>{{ Carbon\Carbon::parse($user->createdAt)->format('d M Y')}}</td>
-                                <td>{{$user->name}}</td>
+                                <td>{{$user->fname}} {{$user->lname}}</td>
                                 <td>{{$user->email}}</td>
                                 @if(isset($user->owner->owner_fname) || isset($user->owner->owner_lname))
                                 <td>{{$user->owner->owner_fname . " " . $user->owner->owner_lname ?? 'N/A'}}</td>

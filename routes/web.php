@@ -17,7 +17,6 @@ use App\Http\Controllers\{
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'welcome'])->name('welcome');
-Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 Route::get('/vehicle/list/all', [PageController::class, 'vehicleList'])->name('vehicle.list');
 
 Route::get('/about', [PageController::class, 'about'])->name('about');
@@ -98,7 +97,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         });
     });
 });
-Route::middleware(['auth', 'is_client'])->group(function () {
+Route::middleware(['auth', 'is_client', 'verified'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/user/cart/list', [CartController::class, 'listCart'])->name('cart.list');
     Route::get('/user/cart/add/{vehicle_id}/{owner_id}', [CartController::class, 'addCart'])->name('add.cart');
