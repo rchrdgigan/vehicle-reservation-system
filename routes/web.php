@@ -108,7 +108,7 @@ Route::middleware(['auth', 'is_client', 'verified'])->group(function () {
     Route::post('/owner/store',[OwnerController::class, 'store'])->name('owner.store');
     Route::put('/owner/update',[OwnerController::class, 'update'])->name('owner.update');
     Route::get('/user/booking/pending', [BookingController::class, 'index'])->name('pending.booking');
-    Route::get('/user/booking/add/{vehicle_id}/{owner_id}', [BookingController::class, 'addBooking'])->name('add.booking');
+    Route::post('/user/booking/add/{vehicle_id}/{owner_id}', [BookingController::class, 'addBooking'])->name('add.booking');
     Route::post('/user/booking/add', [BookingController::class, 'addBookingModal'])->name('add.booking.modal');
     Route::get('/user/booking/add/cart/{id}/{vehicle_id}/{owner_id}', [BookingController::class, 'addBookingFromCart'])->name('add.booking.cart');
     Route::get('/user/booking/cancel', [BookingController::class, 'cancelledBookingList'])->name('cancelled.booking.list');

@@ -55,7 +55,7 @@ Cart List
                                     <td class="li-product-seater"><span class="seater">{{$cart->seating_cap}}</span></td>
                                     <td class="li-product-owner"><span class="owner">{{$cart->owner_name}}.</span></td>
                                     <td class="li-product-add-cart">
-                                       <a href="{{route('add.booking.cart', ['id' => $cart->id ,'vehicle_id' => $cart->vehicle_id , 'owner_id' => $cart->owner_id])}}" class="btn btn-sm btn-dark">Book</a>
+                                       <a href="{{route('vehicle.reservation',$cart->vehicle_id)}}" class="btn btn-sm btn-dark">Book</a>
                                     </td>
                                 </tr>
                                 @endforeach

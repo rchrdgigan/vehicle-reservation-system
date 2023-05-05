@@ -41,6 +41,8 @@
                         <th>Seater</th>
                         <th>Owner</th>
                         <th>Tenant</th>
+                        <th>Date Pick-up</th>
+                        <th>Date Return</th>
                         <th>Status</th>
                     </tr>
                     </thead>
@@ -59,6 +61,8 @@
                             <td>{{$book->seating_cap}}</td>
                             <td>{{$book->owner_name}}.</td>
                             <td>{{$book->name}}</td>
+                            <td>{{Carbon\Carbon::parse($book->date_pickup)->format('M d, Y h:i a')}}</td>
+                            <td>{{Carbon\Carbon::parse($book->date_return)->format('M d, Y h:i a')}}</td>
                             <td><a class="{{($book->status == 'Pending')? 'bg-danger' : ($book->status == 'Cancelled' ? 'bg-secondary' : 'bg-success')}} text-white rounded">{{$book->status}}</a></td>
                         </tr>
                         @endforeach
@@ -75,6 +79,8 @@
                         <th>Brand</th>
                         <th>Seater</th>
                         <th>Owner</th>
+                        <th>Date Pick-up</th>
+                        <th>Date Return</th>
                         <th>Status</th>
                     </tr>
                     </thead>
@@ -92,6 +98,8 @@
                             <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
                             <td>{{$book->seating_cap}}</td>
                             <td>{{$book->owner_name}}.</td>
+                            <td>{{Carbon\Carbon::parse($book->date_pickup)->format('M d, Y h:i a')}}</td>
+                            <td>{{Carbon\Carbon::parse($book->date_return)->format('M d, Y h:i a')}}</td>
                             <td><a class="{{($book->status == 'Pending')? 'bg-danger' : ($book->status == 'Cancelled' ? 'bg-secondary' : 'bg-success')}} text-white rounded">{{$book->status}}</a></td>
                         </tr>
                         @endforeach

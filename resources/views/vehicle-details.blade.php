@@ -37,7 +37,7 @@ Details of Vehicle
                     <div class="product-info">
                         <h2><a href="{{route('owner.car', $owner->id)}}">{{$owner_name ?? 'N/A'}}</a></h2>
                         <span class="product-details-ref">Vehicle Brand:</span> {{$brands->brand ?? 'N/A'}}<br>
-                        <span class="product-details-ref">Vehicle Model:</span> {{$brands->brand ?? 'N/A'}} - {{$vehicle->model_year}}<br>
+                        <span class="product-details-ref">Vehicle Model:</span> {{$vehicle->vehicle_name ?? 'N/A'}} - {{$vehicle->model_year}}<br>
                         <span class="product-details-ref">Seater Capacity:</span> {{$vehicle->seating_cap}}<br>
                         <span class="product-details-ref">Booking Type:</span> 
                         @foreach($type_name as $types)
@@ -86,7 +86,7 @@ Details of Vehicle
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Close</button>
-                    <a href="{{route('')}}" class="btn btn-info">Yes</a>
+                    <a href="{{route('vehicle.reservation',$vehicle->id)}}" class="btn btn-info">Yes</a>
                     <!-- <button type="submit" class="btn btn-info">Yes</button> -->
                 </div>
             <!-- </form> -->

@@ -40,6 +40,8 @@
                         <th>Brand</th>
                         <th>Seater</th>
                         <th>Tenant/Contact</th>
+                        <th>Date Pick-up</th>
+                        <th>Date Return</th>
                         <th>Status</th>
                     </tr>
                     </thead>

@@ -40,6 +40,8 @@
                         <th>Brand</th>
                         <th>Seater</th>
                         <th>Owner</th>
+                        <th>Date Pick-up</th>
+                        <th>Date Return</th>
                         <th>Status</th>
                         <th class="text-center">Action</th>
                     </tr>
@@ -58,6 +60,8 @@
                             <td>{{$book->vehicle_name. " - " .$book->model_year}}</td>
                             <td>{{$book->seating_cap}}</td>
                             <td>{{$book->owner_name}}.</td>
+                            <td>{{Carbon\Carbon::parse($book->date_pickup)->format('M d, Y h:i a')}}</td>
+                            <td>{{Carbon\Carbon::parse($book->date_return)->format('M d, Y h:i a')}}</td>
                             <td><a class="bg-danger text-white rounded">Pending</a></td>
                             <td>
                                 <button type="button" id="{{$book->id}}" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#cancelModal"><i class="fa fa-times"></i> Cancel</a>

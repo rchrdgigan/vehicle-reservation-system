@@ -13,6 +13,8 @@ class Booking extends Model
         'user_id',
         'vehicle_id',
         'owner_id',
+        'date_pickup',
+        'date_return',
         'status',
     ];
 

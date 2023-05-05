@@ -59,7 +59,7 @@ class BookingController extends Controller
         
     }
 
-    public function addBooking($vehicle_id,$owner_id){
+    public function addBooking(Request $request,$vehicle_id,$owner_id){
         $owner_vehicle = AssignVehicleOwner::where('owner_id', auth()->user()->owner->id ?? '')->where('vehicle_id', $vehicle_id)->get();
         if($owner_vehicle->isEmpty()){
             $book = Booking::where('user_id', auth()->user()->id)->where('vehicle_id',$vehicle_id)->where('owner_id',$owner_id)->where('status','Pending')->get();
@@ -68,6 +68,8 @@ class BookingController extends Controller
                     'user_id'=>auth()->user()->id,
                     'vehicle_id'=>$vehicle_id,
                     'owner_id'=>$owner_id,
+                    'date_pickup'=>$request->dtpickup,
+                    'date_return'=>$request->dtreturn,
                     'status'=>'Pending',
                 ]);
                 return redirect()->route('pending.booking')->with("success","Successfully Added to booking pending list!");
@@ -88,6 +90,8 @@ class BookingController extends Controller
                     'user_id'=>auth()->user()->id,
                     'vehicle_id'=>$request->vehicle_id,
                     'owner_id'=>$request->owner_id,
+                    'date_pickup'=>$request->dtpickup,
+                    'date_return'=>$request->dtreturn,
                     'status'=>'Pending',
                 ]);
                 return redirect()->route('pending.booking')->with("success","Successfully Added to booking pending list!");

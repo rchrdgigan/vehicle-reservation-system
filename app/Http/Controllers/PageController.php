@@ -56,10 +56,8 @@ class PageController extends Controller
         }
         $brands = Brand::findOrFail($vehicle->brand_id);
         $vehicle_img = VehicleImage::get();
-        $owners = Owner::get();
-        $o_t_brand = Vehicle::where('brand_id',$vehicle->brand_id)->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon::now()->format('Y-m-d'))->get();
         $count_cart = Booking::where('status','Cart')->where('user_id', (isset(auth()->user()->id))?auth()->user()->id:'')->count();
-        return view('vehicle-details',compact('brands','type_name','owner_name','vehicle','vehicle_img','o_t_brand','owners','owner','count_cart'));
+        return view('reservation',compact('brands','type_name','owner_name','vehicle','owner','vehicle_img','count_cart'));
     }
 
     public function vehicleList(){

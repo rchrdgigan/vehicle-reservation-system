@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('vehicle_id');
             $table->unsignedBigInteger('owner_id');
+            $table->dateTime('date_pickup')->nullable();
+            $table->dateTime('date_return')->nullable();
             $table->string('status')->nullable();
             $table->foreign('vehicle_id')->references('id')->on('vehicles')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
