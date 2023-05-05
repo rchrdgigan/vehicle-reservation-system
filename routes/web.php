@@ -32,6 +32,7 @@ Route::get('/vehicle/list/search', [PageController::class, 'vehicleList'])->name
 Route::get('/vehicle/list/brand/{brand}', [PageController::class, 'vehicleFilteredBrand'])->name('vehicle.filter.brand');
 Route::get('/vehicle/list/type/{type}', [PageController::class, 'vehicleFilteredType'])->name('vehicle.filter.type');
 Route::get('/vehicle/details/{id}', [PageController::class, 'vehicleDetail'])->name('vehicle.details');
+Route::get('/vehicle/reservation/{id}', [PageController::class, 'vehicleReservation'])->name('vehicle.reservation');
 Route::get('/owner/vehicle-list/{id}', [PageController::class, 'ownerCars'])->name('owner.car');
 
 

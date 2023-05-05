@@ -30,7 +30,7 @@ List of Vehicle
                                     @forelse($vehicles->where('is_approved','Approved')->where('vehicle_exp', '>' , Carbon\Carbon::now()->format('Y-m-d')) as $vehicle)
                                         <div class="col-lg-4 col-md-4 col-sm-4 mt-40">
                                             <div class="single-product-wrap">
-                                                <div class="product-image static-image">
+                                                <div class="product-image static-image" >
                                                     @foreach($vehicle_img->where('vehicle_id', $vehicle->id)->take(1) as $img)
                                                     <a href="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}">
                                                         <img src="{{asset('/storage/vehicle_image/'. $img->vehicle_img)}}" alt="VRMS Car's">

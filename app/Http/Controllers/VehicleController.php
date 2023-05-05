@@ -62,7 +62,7 @@ class VehicleController extends Controller
             'vehicle_name' => $request->vehicle_name,
             'model_year' => $request->model_year,
             'brand_id' => $request->brand_id,
-            'seating_cap' => $request->seating_cap,
+            'seating_cap' => $request->seating_cap." seater",
             'description' => $request->description,
             'is_approved' => 'Approved'
         ]);
@@ -240,7 +240,7 @@ class VehicleController extends Controller
             'vehicle_name' => $request->vehicle_name,
             'model_year' => $request->model_year,
             'brand_id' => $request->brand_id,
-            'seating_cap' => $request->seating_cap,
+            'seating_cap' => $request->seating_cap." seater",
             'description' => $request->description,
             'is_approved' => 'Pending'
         ]);

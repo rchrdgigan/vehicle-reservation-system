@@ -74,8 +74,8 @@ Details of Vehicle
 <div class="modal fade" id="booknow">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{route('add.booking.modal')}}" method="post" id="book_frm">
-                @csrf
+            <!-- <form action="{{route('add.booking.modal')}}" method="post" id="book_frm">
+                @csrf -->
                 <input type="hidden" name="vehicle_id">
                 <input type="hidden" name="owner_id">
                 <!-- Modal body -->
@@ -86,9 +86,10 @@ Details of Vehicle
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary text-white" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-info">Yes</button>
+                    <a href="{{route('')}}" class="btn btn-info">Yes</a>
+                    <!-- <button type="submit" class="btn btn-info">Yes</button> -->
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
     </div>
 </div>
